@@ -51,5 +51,15 @@ namespace OnlineLibraryAPI.Presentation.Controllers
                 },
             });
         }
+
+        /// <summary>
+        /// Получить количество книг
+        /// </summary>
+        [HttpPost]
+        [Route("count")]
+        public async Task<IActionResult> GetBooksCount([FromBody] GetBooksCountDto record)
+        {
+            return Ok(123);
+        }
     }
 }
