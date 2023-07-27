@@ -11,10 +11,9 @@
     /// int? NumberPagesMax - Максимальное количество станиц,
     /// int? NumberAdditionsNotesMin - Минимальное количество добавления в заметки,
     /// int? NumberAdditionsNotesMax - Максимальное количество добавления в заметки,
+    /// Guid? LanguageId - Id языка,
     /// bool MustHaveAllTopics - Должен ли иметь все введенные категории,
     /// List Guid? Topics - Категории,
-    /// bool MustHaveAllSubtopics - Должен ли иметь все введенные подкатегории,
-    /// List Guid? Subtopics - Подкатегории,
     /// bool MustHaveAllAuthors - Должен ли иметь всех введенных авторов,
     /// List Guid? Authors - Авторы,
     /// bool MustHaveAllPublishers - Должен ли иметь все введенные издательства,
@@ -61,19 +60,14 @@
         public bool MustHaveAllTopics { get; set; }
 
         /// <summary>
+        /// Id языка
+        /// </summary>
+        public Guid? LanguageId { get; set; }
+
+        /// <summary>
         /// Категории
         /// </summary>
         public List<Guid>? Topics { get; set; }
-
-        /// <summary>
-        /// Должен ли иметь все введенные подкатегории
-        /// </summary>
-        public bool MustHaveAllSubtopics { get; set; }
-
-        /// <summary>
-        /// Подкатегории
-        /// </summary>
-        public List<Guid>? Subtopics { get; set; }
 
         /// <summary>
         /// Должен ли иметь всех введенных авторов

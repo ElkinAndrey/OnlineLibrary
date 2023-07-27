@@ -30,9 +30,15 @@ namespace OnlineLibraryAPI.Presentation.Controllers
                     EditionNumber = "Издание 1",
                     NumberAdditionsNotes = 1242,
                     Topics = new List<object>() { "Программирование", "Матемтика" },
-                    Subtopics = new List<object>() { "C#", "Алгоритмы" },
                     Authors = new List<object>() { "Дональд Кнуд", "Дэниель Абрамов" },
                     Publishers = new List<object>() { "БХВ-Петербург" },
+                    Language = new
+                    {
+                        Id = "00000000-0000-0000-0000-676175725156",
+                        Name = "Русский",
+                        EnglishName = "Russian",
+                        Abbreviation = "RU"
+                    },
                 },
                 new
                 {
@@ -45,9 +51,15 @@ namespace OnlineLibraryAPI.Presentation.Controllers
                     EditionNumber = "4-е издание",
                     NumberAdditionsNotes = 430,
                     Topics = new List<object>() { "Программирование" },
-                    Subtopics = new List<object>() { "C#" },
                     Authors = new List<object>() { "Джеффри Рихтер" },
                     Publishers = new List<object>() { "ООО Издательство «Питер»" },
+                    Language = new
+                    {
+                        Id = "00000000-0000-0000-0000-657849819657",
+                        Name = "English",
+                        EnglishName = "English",
+                        Abbreviation = "EN"
+                    },
                 },
             });
         }
