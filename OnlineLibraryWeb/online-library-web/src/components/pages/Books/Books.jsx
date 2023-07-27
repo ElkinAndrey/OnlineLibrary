@@ -2,9 +2,15 @@ import React, { useEffect, useRef, useState } from "react";
 import { useFetching } from "../../../hooks/useFetching";
 import BookApi from "../../../api/bookApi";
 import { SearchSettings } from "../../../views/SearchSettings/SearchSettings";
+import PaginationBar from "../../forms/PaginationBar/PaginationBar";
 
+/**Количество книг на странице */
 const pageSize = 20;
 
+/**Страница по умолчанию */
+const basePage = 1;
+
+/**Базовые настройки для получения книг */
 const baseSearchSettings = {
   start: 0,
   length: pageSize,
@@ -24,9 +30,17 @@ const baseSearchSettings = {
   publishers: [],
 };
 
+/**Получить новые настройки */
+const getNewSettings = (newSettings, start = 0, length = pageSize) => {
+  return { ...newSettings, start: start, length: length };
+};
+
+/**Страница с книгами */
 const Books = () => {
   // Вспомогательные переменные
-  const fetchedRef = useRef(false);
+  const fetchedRef = useRef(true);
+  let [useEffectCall, setUseEffectCall] = useState(true);
+  let [page, setPage] = useState(basePage);
 
   // Данные
   let [books, setBooks] = useState([]);
@@ -37,28 +51,47 @@ const Books = () => {
   // Получение данных
   const [fetchBooks, isLoadingBooks, errorBooks] = useFetching(
     async (settings) => {
+      console.log(1);
       const response = await BookApi.getBooks(settings);
       setBooks(response.data);
     }
   );
   const [fetchBooksCount, isLoadingBooksCount, errorBooksCount] = useFetching(
     async (settings) => {
+      console.log(2);
       const response = await BookApi.getBooksCount(settings);
       setBooksCount(response.data);
     }
   );
 
   useEffect(() => {
-    if (!fetchedRef.current) fetchedRef.current = true;
-    fetchBooks(searchSettings);
-    fetchBooksCount(searchSettings);
-  }, []);
+    if (fetchedRef.current) {
+      fetchedRef.current = false;
+      return;
+    }
+    let settings = getNewSettings(
+      searchSettings,
+      (page - 1) * pageSize,
+      pageSize
+    );
+    setSearchSettings(settings);
+    fetchBooks(settings);
+    fetchBooksCount(settings);
+  }, [page, useEffectCall]);
 
+  // Функции
   const update = () => {
-    let n = { ...newSearchSettings, start: 0, length: pageSize };
-    setSearchSettings(n);
-    fetchBooks(n);
-    fetchBooksCount(n);
+    let newSettings = getNewSettings(newSearchSettings);
+    setSearchSettings(newSettings);
+    changePage();
+  };
+
+  const changePage = () => {
+    if (page === 1) {
+      setUseEffectCall(!useEffectCall);
+    } else {
+      setPage(basePage);
+    }
   };
 
   return (
@@ -97,6 +130,13 @@ const Books = () => {
           ))}
         </tbody>
       </table>
+      <PaginationBar
+        min={1}
+        max={100}
+        page={page}
+        setPage={setPage}
+        centerCount={3}
+      />
     </>
   );
 };
