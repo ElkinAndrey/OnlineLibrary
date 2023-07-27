@@ -30,16 +30,10 @@ const baseSearchSettings = {
   publishers: [],
 };
 
-/**Получить новые настройки */
-const getNewSettings = (newSettings, start = 0, length = pageSize) => {
-  return { ...newSettings, start: start, length: length };
-};
-
 /**Страница с книгами */
 const Books = () => {
   // Вспомогательные переменные
   const fetchedRef = useRef(true);
-  let [useEffectCall, setUseEffectCall] = useState(true);
   let [page, setPage] = useState(basePage);
 
   // Данные
@@ -47,18 +41,17 @@ const Books = () => {
   let [booksCount, setBooksCount] = useState([]);
   let [searchSettings, setSearchSettings] = useState(baseSearchSettings);
   let [newSearchSettings, setNewSearchSettings] = useState(baseSearchSettings);
+  let [resetFuncs, setResetFuncs] = useState([]);
 
   // Получение данных
   const [fetchBooks, isLoadingBooks, errorBooks] = useFetching(
     async (settings) => {
-      console.log(1);
       const response = await BookApi.getBooks(settings);
       setBooks(response.data);
     }
   );
   const [fetchBooksCount, isLoadingBooksCount, errorBooksCount] = useFetching(
     async (settings) => {
-      console.log(2);
       const response = await BookApi.getBooksCount(settings);
       setBooksCount(response.data);
     }
@@ -69,29 +62,43 @@ const Books = () => {
       fetchedRef.current = false;
       return;
     }
-    let settings = getNewSettings(
-      searchSettings,
-      (page - 1) * pageSize,
-      pageSize
-    );
-    setSearchSettings(settings);
-    fetchBooks(settings);
-    fetchBooksCount(settings);
-  }, [page, useEffectCall]);
+    updateFetch(searchSettings);
+  }, []);
 
   // Функции
-  const update = () => {
-    let newSettings = getNewSettings(newSearchSettings);
-    setSearchSettings(newSettings);
-    changePage();
+  const updateFetch = (settings) => {
+    fetchBooks(settings);
+    fetchBooksCount(settings);
   };
 
-  const changePage = () => {
-    if (page === 1) {
-      setUseEffectCall(!useEffectCall);
-    } else {
-      setPage(basePage);
-    }
+  const setNewPage = (page) => {
+    let settings = {
+      ...searchSettings,
+      start: (page - 1) * pageSize,
+      length: pageSize,
+    };
+    setPage(page);
+    setSearchSettings(settings);
+    updateFetch(settings);
+  };
+
+  const update = () => {
+    let settings = {
+      ...newSearchSettings,
+      start: (basePage - 1) * pageSize,
+      length: pageSize,
+    };
+    setPage(basePage);
+    setSearchSettings(settings);
+    updateFetch(settings);
+  };
+
+  const reset = () => {
+    resetFuncs.map((f) => f());
+    setPage(basePage);
+    setSearchSettings(baseSearchSettings);
+    setNewSearchSettings(baseSearchSettings);
+    updateFetch(baseSearchSettings);
   };
 
   return (
@@ -99,8 +106,10 @@ const Books = () => {
       <SearchSettings
         settings={newSearchSettings}
         setSettings={setNewSearchSettings}
+        addResetFuncs={(f) => setResetFuncs([...resetFuncs, f])}
       />
       <button onClick={update}>Обновить</button>
+      <button onClick={reset}>Сбросить</button>
       <div>{`Количество найденных книг: ${booksCount}`}</div>
       <table>
         <thead>
@@ -132,9 +141,9 @@ const Books = () => {
       </table>
       <PaginationBar
         min={1}
-        max={100}
+        max={Math.ceil(booksCount / pageSize)}
         page={page}
-        setPage={setPage}
+        setPage={setNewPage}
         centerCount={3}
       />
     </>

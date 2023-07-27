@@ -1,8 +1,9 @@
 import React from "react";
 import InputNumder from "../InputNumder/InputNumder";
 import { getNullIfZero } from "../../utils/getNullIfZero";
+import SetSearchTopics from "../SetSearchTopics/SetSearchTopics";
 
-export function SearchSettings({ settings, setSettings }) {
+export function SearchSettings({ settings, setSettings, addResetFuncs }) {
   return (
     <>
       <div>
@@ -60,6 +61,13 @@ export function SearchSettings({ settings, setSettings }) {
           })
         }
       />
+      <SetSearchTopics
+        settings={settings}
+        setSettings={setSettings}
+        addResetFuncs={addResetFuncs}
+      />
+      {/* <SetSettingsAuthors settings={settings} setSettings={setSettings} /> */}
+      {/* <SetSettingsPublishers settings={settings} setSettings={setSettings} /> */}
     </>
   );
 }
