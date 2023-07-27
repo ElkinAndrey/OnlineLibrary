@@ -9,6 +9,11 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+app.UseCors(options =>
+    options.WithOrigins("http://localhost:3000") //  Кому можно получать данные с сервера
+    .AllowAnyMethod()
+    .AllowAnyHeader());
+
 // Настройте конвейер HTTP-запросов.
 if (app.Environment.IsDevelopment())
 {
