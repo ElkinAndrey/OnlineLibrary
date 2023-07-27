@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useFetching } from "../../../hooks/useFetching";
 import BookApi from "../../../api/bookApi";
+import { SearchSettings } from "../../../views/SearchSettings/SearchSettings";
 
 const pageSize = 20;
 
@@ -31,6 +32,7 @@ const Books = () => {
   let [books, setBooks] = useState([]);
   let [booksCount, setBooksCount] = useState([]);
   let [searchSettings, setSearchSettings] = useState(baseSearchSettings);
+  let [newSearchSettings, setNewSearchSettings] = useState(baseSearchSettings);
 
   // Получение данных
   const [fetchBooks, isLoadingBooks, errorBooks] = useFetching(
@@ -52,8 +54,20 @@ const Books = () => {
     fetchBooksCount(searchSettings);
   }, []);
 
+  const update = () => {
+    let n = { ...newSearchSettings, start: 0, length: pageSize };
+    setSearchSettings(n);
+    fetchBooks(n);
+    fetchBooksCount(n);
+  };
+
   return (
     <>
+      <SearchSettings
+        settings={newSearchSettings}
+        setSettings={setNewSearchSettings}
+      />
+      <button onClick={update}>Обновить</button>
       <div>{`Количество найденных книг: ${booksCount}`}</div>
       <table>
         <thead>
