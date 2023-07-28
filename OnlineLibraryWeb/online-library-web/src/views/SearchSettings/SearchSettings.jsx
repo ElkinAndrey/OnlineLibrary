@@ -5,6 +5,7 @@ import SetSearch from "../SetSearch/SetSearch";
 import GetTopics from "../GetTopics/GetTopics";
 import GetAuthors from "../GetAuthors/GetAuthors";
 import GetPublishers from "../GetPublishers/GetPublishers";
+import SetSearchLanguage from "../SetSearchLanguage/SetSearchLanguage";
 
 const emptyFunc = () => {};
 
@@ -17,11 +18,10 @@ export function SearchSettings({ settings, setSettings, setResetFunc }) {
   let [authors, setAuthors] = useState([]);
   let [publishers, setPublishers] = useState([]);
 
-  let [resetSettings, setResetSettings] = useState({
-    resetTopics: emptyFunc,
-    resetAuthors: emptyFunc,
-    resetPublishers: emptyFunc,
-  });
+  let [resetLanguage, setResetLanguage] = useState({ run: emptyFunc });
+  let [resetTopics, setResetTopics] = useState({ run: emptyFunc });
+  let [resetAuthors, setResetAuthors] = useState({ run: emptyFunc });
+  let [resetPublishers, setResetPublishers] = useState({ run: emptyFunc });
 
   useEffect(() => {
     if (fetchedRef.current) {
@@ -30,12 +30,14 @@ export function SearchSettings({ settings, setSettings, setResetFunc }) {
     }
     setResetFunc({
       run: () => {
-        resetSettings.resetTopics();
-        resetSettings.resetAuthors();
-        resetSettings.resetPublishers();
+        resetLanguage.run();
+        resetTopics.run();
+        resetAuthors.run();
+        resetPublishers.run();
       },
     });
-  }, [resetSettings]);
+  }, [resetLanguage, resetTopics, resetAuthors, resetPublishers]);
+
   return (
     <>
       <div>
@@ -93,6 +95,13 @@ export function SearchSettings({ settings, setSettings, setResetFunc }) {
           })
         }
       />
+
+      <SetSearchLanguage
+        settings={settings}
+        setSettings={setSettings}
+        setReset={(p) => setResetLanguage({ run: p })}
+      />
+
       <SetSearch
         name={`Темы: ${topics.map((t) => t.name).join(", ")}`}
         mustHaveAllName={"Книга должна иметь все выбранные темы"}
@@ -111,9 +120,7 @@ export function SearchSettings({ settings, setSettings, setResetFunc }) {
             setTopics(t);
             setSettings({ ...settings, topics: t.map((tt) => tt.id) });
           }}
-          setReset={(p) =>
-            setResetSettings({ ...resetSettings, resetTopics: p })
-          }
+          setReset={(p) => setResetTopics({ run: p })}
         />
       </SetSearch>
 
@@ -135,9 +142,7 @@ export function SearchSettings({ settings, setSettings, setResetFunc }) {
             setAuthors(a);
             setSettings({ ...settings, authors: a.map((aa) => aa.id) });
           }}
-          setReset={(p) =>
-            setResetSettings({ ...resetSettings, resetAuthors: p })
-          }
+          setReset={(p) => setResetAuthors({ run: p })}
         />
       </SetSearch>
 
@@ -159,9 +164,7 @@ export function SearchSettings({ settings, setSettings, setResetFunc }) {
             setPublishers(p);
             setSettings({ ...settings, publishers: p.map((pp) => pp.id) });
           }}
-          setReset={(p) =>
-            setResetSettings({ ...resetSettings, resetPublishers: p })
-          }
+          setReset={(p) => setResetPublishers({ run: p })}
         />
       </SetSearch>
     </>

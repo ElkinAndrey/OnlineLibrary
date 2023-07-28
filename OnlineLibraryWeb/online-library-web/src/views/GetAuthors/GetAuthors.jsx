@@ -103,7 +103,7 @@ const GetAuthors = ({ selectedAuthors, setSelectedAuthors, setReset }) => {
         <button onClick={() => update()}>Обновить</button>
         <button onClick={() => reset()}>Сбросить</button>
       </div>
-      <div>{`Количество тем: ${authorsCount}`}</div>
+      <div>{`Количество авторов: ${authorsCount}`}</div>
       <table>
         <thead>
           <tr>
