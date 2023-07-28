@@ -3,7 +3,7 @@ import { useFetching } from "../../hooks/useFetching";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
-import TopicsApi from "../../api/topicsApi";
+import AuthorsApi from "../../api/authorsApi";
 import PaginationBar from "../../components/forms/PaginationBar/PaginationBar";
 
 /**Количество книг на странице */
@@ -19,28 +19,28 @@ const baseSearchSettings = {
   name: null,
 };
 
-const GetTopics = ({ selectedTopics, setSelectedTopics, addResetFuncs }) => {
+const GetAuthors = ({ selectedAuthors, setSelectedAuthors, addResetFuncs }) => {
   // Вспомогательные переменные
   const fetchedRef = useRef(true);
   let [page, setPage] = useState(basePage);
 
   // Данные
-  let [topics, setTopics] = useState([]);
-  let [topicsCount, setTopicsCount] = useState([]);
+  let [authors, setAuthors] = useState([]);
+  let [authorsCount, setAuthorsCount] = useState([]);
   let [searchSettings, setSearchSettings] = useState(baseSearchSettings);
   let [newSearchSettings, setNewSearchSettings] = useState(baseSearchSettings);
 
   // Получение данных
-  const [fetchTopics, isLoadingTopics, errorTopics] = useFetching(
+  const [fetchAuthors, isLoadingAuthors, errorAuthors] = useFetching(
     async (settings) => {
-      const response = await TopicsApi.getTopics(settings);
-      setTopics(response.data);
+      const response = await AuthorsApi.getAuthors(settings);
+      setAuthors(response.data);
     }
   );
-  const [fetchTopicsCount, isLoadingTopicsCount, errorTopicsCount] =
+  const [fetchAuthorsCount, isLoadingAuthorsCount, errorAuthorsCount] =
     useFetching(async (settings) => {
-      const response = await TopicsApi.getTopicsCount(settings);
-      setTopicsCount(response.data);
+      const response = await AuthorsApi.getAuthorsCount(settings);
+      setAuthorsCount(response.data);
     });
 
   useEffect(() => {
@@ -54,8 +54,8 @@ const GetTopics = ({ selectedTopics, setSelectedTopics, addResetFuncs }) => {
 
   // Функции
   const updateFetch = (settings) => {
-    fetchTopics(settings);
-    fetchTopicsCount(settings);
+    fetchAuthors(settings);
+    fetchAuthorsCount(settings);
   };
 
   const setNewPage = (page) => {
@@ -75,6 +75,7 @@ const GetTopics = ({ selectedTopics, setSelectedTopics, addResetFuncs }) => {
       start: (basePage - 1) * pageSize,
       length: pageSize,
     };
+    console.log(settings);
     setPage(basePage);
     setSearchSettings(settings);
     updateFetch(settings);
@@ -84,7 +85,7 @@ const GetTopics = ({ selectedTopics, setSelectedTopics, addResetFuncs }) => {
     setPage(basePage);
     setSearchSettings(baseSearchSettings);
     setNewSearchSettings(baseSearchSettings);
-    setSelectedTopics([]);
+    setSelectedAuthors([]);
     updateFetch(baseSearchSettings);
   };
 
@@ -103,7 +104,7 @@ const GetTopics = ({ selectedTopics, setSelectedTopics, addResetFuncs }) => {
         <button onClick={() => update()}>Обновить</button>
         <button onClick={() => reset()}>Сбросить</button>
       </div>
-      <div>{`Количество тем: ${topicsCount}`}</div>
+      <div>{`Количество тем: ${authorsCount}`}</div>
       <table>
         <thead>
           <tr>
@@ -112,23 +113,25 @@ const GetTopics = ({ selectedTopics, setSelectedTopics, addResetFuncs }) => {
           </tr>
         </thead>
         <tbody>
-          {topics.map((topic) => (
-            <tr key={topic.id}>
-              <td>{topic.name}</td>
+          {authors.map((author) => (
+            <tr key={author.id}>
+              <td>{author.name}</td>
               <td>
                 <input
                   type={"checkbox"}
-                  checked={(selectedTopics ?? []).some(
-                    (t) => t.id === topic.id
+                  checked={(selectedAuthors ?? []).some(
+                    (t) => t.id === author.id
                   )}
                   onChange={() => {
-                    if ((selectedTopics ?? []).some((t) => t.id === topic.id)) {
-                      let newTopics = selectedTopics.filter(
-                        (t) => t.id !== topic.id
+                    if (
+                      (selectedAuthors ?? []).some((t) => t.id === author.id)
+                    ) {
+                      let newAuthors = selectedAuthors.filter(
+                        (t) => t.id !== author.id
                       );
-                      setSelectedTopics(newTopics);
+                      setSelectedAuthors(newAuthors);
                     } else {
-                      setSelectedTopics([...selectedTopics, topic]);
+                      setSelectedAuthors([...selectedAuthors, author]);
                     }
                   }}
                 />
@@ -139,7 +142,7 @@ const GetTopics = ({ selectedTopics, setSelectedTopics, addResetFuncs }) => {
       </table>
       <PaginationBar
         min={1}
-        max={Math.ceil(topicsCount / pageSize)}
+        max={Math.ceil(authorsCount / pageSize)}
         page={page}
         setPage={setNewPage}
         centerCount={1}
@@ -148,4 +151,4 @@ const GetTopics = ({ selectedTopics, setSelectedTopics, addResetFuncs }) => {
   );
 };
 
-export default GetTopics;
+export default GetAuthors;

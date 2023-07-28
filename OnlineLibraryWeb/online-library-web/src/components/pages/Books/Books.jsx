@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useFetching } from "../../../hooks/useFetching";
-import BookApi from "../../../api/bookApi";
+import BooksApi from "../../../api/booksApi";
 import { SearchSettings } from "../../../views/SearchSettings/SearchSettings";
 import PaginationBar from "../../forms/PaginationBar/PaginationBar";
 
@@ -46,13 +46,13 @@ const Books = () => {
   // Получение данных
   const [fetchBooks, isLoadingBooks, errorBooks] = useFetching(
     async (settings) => {
-      const response = await BookApi.getBooks(settings);
+      const response = await BooksApi.getBooks(settings);
       setBooks(response.data);
     }
   );
   const [fetchBooksCount, isLoadingBooksCount, errorBooksCount] = useFetching(
     async (settings) => {
-      const response = await BookApi.getBooksCount(settings);
+      const response = await BooksApi.getBooksCount(settings);
       setBooksCount(response.data);
     }
   );

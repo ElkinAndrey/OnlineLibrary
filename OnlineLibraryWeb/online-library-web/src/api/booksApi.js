@@ -3,7 +3,7 @@ import { defaultURL } from "./apiSettings";
 
 const URL = `${defaultURL}/books`;
 
-export default class BookApi {
+export default class BooksApi {
   static async getBooks(settings) {
     const response = await axios.post(`${URL}`, settings);
     return response;

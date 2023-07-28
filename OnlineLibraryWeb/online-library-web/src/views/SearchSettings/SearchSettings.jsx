@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import InputNumder from "../InputNumder/InputNumder";
 import { getNullIfZero } from "../../utils/getNullIfZero";
-import SetSearchTopics from "../SetSearchTopics/SetSearchTopics";
+import SetSearch from "../SetSearch/SetSearch";
+import GetTopics from "../GetTopics/GetTopics";
+import GetAuthors from "../GetAuthors/GetAuthors";
 
 export function SearchSettings({ settings, setSettings, addResetFuncs }) {
+  let [topics, setTopics] = useState([]);
+  let [authors, setAuthors] = useState([]);
+  let [publishers, setPublishers] = useState([]);
+
   return (
     <>
       <div>
@@ -61,13 +67,63 @@ export function SearchSettings({ settings, setSettings, addResetFuncs }) {
           })
         }
       />
-      <SetSearchTopics
-        settings={settings}
-        setSettings={setSettings}
-        addResetFuncs={addResetFuncs}
-      />
-      {/* <SetSettingsAuthors settings={settings} setSettings={setSettings} /> */}
-      {/* <SetSettingsPublishers settings={settings} setSettings={setSettings} /> */}
+      <SetSearch
+        name={`Темы: ${topics.map((t) => t.name).join(", ")}`}
+        mustHaveAllName={"Книга должна иметь все выбранные темы"}
+        mustHaveAll={settings.mustHaveAllTopics}
+        setMustHaveAll={() =>
+          setSettings({
+            ...settings,
+            mustHaveAllTopics: !settings.mustHaveAllTopics,
+          })
+        }
+      >
+        <h1 style={{ textAlign: "center" }}>Темы</h1>
+        <GetTopics
+          selectedTopics={topics}
+          setSelectedTopics={(t) => {
+            setTopics(t);
+            setSettings({ ...settings, topics: t.map((tt) => tt.id) });
+          }}
+          addResetFuncs={addResetFuncs}
+        />
+      </SetSearch>
+
+      <SetSearch
+        name={`Авторы: ${authors.map((t) => t.name).join(", ")}`}
+        mustHaveAllName={"Книга должна иметь всех выбранных авторов"}
+        mustHaveAll={settings.mustHaveAllAuthors}
+        setMustHaveAll={() =>
+          setSettings({
+            ...settings,
+            mustHaveAllAuthors: !settings.mustHaveAllAuthors,
+          })
+        }
+      >
+        <h1 style={{ textAlign: "center" }}>Авторы</h1>
+        <GetAuthors
+          selectedAuthors={authors}
+          setSelectedAuthors={(a) => {
+            setAuthors(a);
+            setSettings({ ...settings, authors: a.map((aa) => aa.id) });
+          }}
+          addResetFuncs={addResetFuncs}
+        />
+      </SetSearch>
+
+      <SetSearch
+        name={`Издательства: ${publishers.map((t) => t.name).join(", ")}`}
+        mustHaveAllName={"Книга должна иметь все выбранные издательства"}
+        mustHaveAll={settings.mustHaveAllPublishers}
+        setMustHaveAll={() =>
+          setSettings({
+            ...settings,
+            mustHaveAllPublishers: !settings.mustHaveAllPublishers,
+          })
+        }
+      >
+        <h1 style={{ textAlign: "center" }}>Издательства</h1>
+      </SetSearch>
     </>
   );
 }
