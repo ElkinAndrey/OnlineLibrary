@@ -3,7 +3,7 @@ import { useFetching } from "../../hooks/useFetching";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
-import TopicsApi from "../../api/topicsApi";
+import PublishersApi from "../../api/publishersApi";
 import PaginationBar from "../../components/forms/PaginationBar/PaginationBar";
 
 /**Количество книг на странице */
@@ -19,28 +19,32 @@ const baseSearchSettings = {
   name: null,
 };
 
-const GetTopics = ({ selectedTopics, setSelectedTopics, setReset }) => {
+const GetPublishers = ({
+  selectedPublishers,
+  setSelectedPublishers,
+  setReset,
+}) => {
   // Вспомогательные переменные
   const fetchedRef = useRef(true);
   let [page, setPage] = useState(basePage);
 
   // Данные
-  let [topics, setTopics] = useState([]);
-  let [topicsCount, setTopicsCount] = useState([]);
+  let [publishers, setPublishers] = useState([]);
+  let [publishersCount, setPublishersCount] = useState([]);
   let [searchSettings, setSearchSettings] = useState(baseSearchSettings);
   let [newSearchSettings, setNewSearchSettings] = useState(baseSearchSettings);
 
   // Получение данных
-  const [fetchTopics, isLoadingTopics, errorTopics] = useFetching(
+  const [fetchPublishers, isLoadingPublishers, errorPublishers] = useFetching(
     async (settings) => {
-      const response = await TopicsApi.getTopics(settings);
-      setTopics(response.data);
+      const response = await PublishersApi.getPublishers(settings);
+      setPublishers(response.data);
     }
   );
-  const [fetchTopicsCount, isLoadingTopicsCount, errorTopicsCount] =
+  const [fetchPublishersCount, isLoadingPublishersCount, errorPublishersCount] =
     useFetching(async (settings) => {
-      const response = await TopicsApi.getTopicsCount(settings);
-      setTopicsCount(response.data);
+      const response = await PublishersApi.getPublishersCount(settings);
+      setPublishersCount(response.data);
     });
 
   useEffect(() => {
@@ -54,8 +58,8 @@ const GetTopics = ({ selectedTopics, setSelectedTopics, setReset }) => {
 
   // Функции
   const updateFetch = (settings) => {
-    fetchTopics(settings);
-    fetchTopicsCount(settings);
+    fetchPublishers(settings);
+    fetchPublishersCount(settings);
   };
 
   const setNewPage = (page) => {
@@ -84,7 +88,7 @@ const GetTopics = ({ selectedTopics, setSelectedTopics, setReset }) => {
     setPage(basePage);
     setSearchSettings(baseSearchSettings);
     setNewSearchSettings(baseSearchSettings);
-    setSelectedTopics([]);
+    setSelectedPublishers([]);
     updateFetch(baseSearchSettings);
   };
 
@@ -103,7 +107,7 @@ const GetTopics = ({ selectedTopics, setSelectedTopics, setReset }) => {
         <button onClick={() => update()}>Обновить</button>
         <button onClick={() => reset()}>Сбросить</button>
       </div>
-      <div>{`Количество тем: ${topicsCount}`}</div>
+      <div>{`Количество тем: ${publishersCount}`}</div>
       <table>
         <thead>
           <tr>
@@ -112,23 +116,27 @@ const GetTopics = ({ selectedTopics, setSelectedTopics, setReset }) => {
           </tr>
         </thead>
         <tbody>
-          {topics.map((topic) => (
-            <tr key={topic.id}>
-              <td>{topic.name}</td>
+          {publishers.map((publisher) => (
+            <tr key={publisher.id}>
+              <td>{publisher.name}</td>
               <td>
                 <input
                   type={"checkbox"}
-                  checked={(selectedTopics ?? []).some(
-                    (t) => t.id === topic.id
+                  checked={(selectedPublishers ?? []).some(
+                    (t) => t.id === publisher.id
                   )}
                   onChange={() => {
-                    if ((selectedTopics ?? []).some((t) => t.id === topic.id)) {
-                      let newTopics = selectedTopics.filter(
-                        (t) => t.id !== topic.id
+                    if (
+                      (selectedPublishers ?? []).some(
+                        (t) => t.id === publisher.id
+                      )
+                    ) {
+                      let newPublishers = selectedPublishers.filter(
+                        (t) => t.id !== publisher.id
                       );
-                      setSelectedTopics(newTopics);
+                      setSelectedPublishers(newPublishers);
                     } else {
-                      setSelectedTopics([...selectedTopics, topic]);
+                      setSelectedPublishers([...selectedPublishers, publisher]);
                     }
                   }}
                 />
@@ -139,7 +147,7 @@ const GetTopics = ({ selectedTopics, setSelectedTopics, setReset }) => {
       </table>
       <PaginationBar
         min={1}
-        max={Math.ceil(topicsCount / pageSize)}
+        max={Math.ceil(publishersCount / pageSize)}
         page={page}
         setPage={setNewPage}
         centerCount={1}
@@ -148,4 +156,4 @@ const GetTopics = ({ selectedTopics, setSelectedTopics, setReset }) => {
   );
 };
 
-export default GetTopics;
+export default GetPublishers;

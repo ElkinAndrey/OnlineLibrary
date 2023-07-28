@@ -41,7 +41,7 @@ const Books = () => {
   let [booksCount, setBooksCount] = useState([]);
   let [searchSettings, setSearchSettings] = useState(baseSearchSettings);
   let [newSearchSettings, setNewSearchSettings] = useState(baseSearchSettings);
-  let [resetFuncs, setResetFuncs] = useState([]);
+  let [resetFunc, setResetFunc] = useState({ run: () => {} });
 
   // Получение данных
   const [fetchBooks, isLoadingBooks, errorBooks] = useFetching(
@@ -94,7 +94,7 @@ const Books = () => {
   };
 
   const reset = () => {
-    resetFuncs.map((f) => f());
+    resetFunc.run();
     setPage(basePage);
     setSearchSettings(baseSearchSettings);
     setNewSearchSettings(baseSearchSettings);
@@ -106,7 +106,7 @@ const Books = () => {
       <SearchSettings
         settings={newSearchSettings}
         setSettings={setNewSearchSettings}
-        addResetFuncs={(f) => setResetFuncs([...resetFuncs, f])}
+        setResetFunc={setResetFunc}
       />
       <button onClick={update}>Обновить</button>
       <button onClick={reset}>Сбросить</button>

@@ -19,7 +19,7 @@ const baseSearchSettings = {
   name: null,
 };
 
-const GetAuthors = ({ selectedAuthors, setSelectedAuthors, addResetFuncs }) => {
+const GetAuthors = ({ selectedAuthors, setSelectedAuthors, setReset }) => {
   // Вспомогательные переменные
   const fetchedRef = useRef(true);
   let [page, setPage] = useState(basePage);
@@ -48,7 +48,7 @@ const GetAuthors = ({ selectedAuthors, setSelectedAuthors, addResetFuncs }) => {
       fetchedRef.current = false;
       return;
     }
-    addResetFuncs(reset);
+    setReset(reset);
     updateFetch(searchSettings);
   }, []);
 
@@ -75,7 +75,6 @@ const GetAuthors = ({ selectedAuthors, setSelectedAuthors, addResetFuncs }) => {
       start: (basePage - 1) * pageSize,
       length: pageSize,
     };
-    console.log(settings);
     setPage(basePage);
     setSearchSettings(settings);
     updateFetch(settings);

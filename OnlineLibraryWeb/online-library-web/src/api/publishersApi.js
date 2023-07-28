@@ -1,15 +1,15 @@
 import axios from "axios";
 import { defaultURL } from "./apiSettings";
 
-const URL = `${defaultURL}/authors`;
+const URL = `${defaultURL}/publishers`;
 
-export default class AuthorsApi {
-  static async getAuthors(settings) {
+export default class PublishersApi {
+  static async getPublishers(settings) {
     const response = await axios.post(`${URL}`, settings);
     return response;
   }
 
-  static async getAuthorsCount(settings) {
+  static async getPublishersCount(settings) {
     const response = await axios.post(`${URL}/count`, settings);
     return response;
   }

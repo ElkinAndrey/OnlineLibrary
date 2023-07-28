@@ -1,15 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import InputNumder from "../InputNumder/InputNumder";
 import { getNullIfZero } from "../../utils/getNullIfZero";
 import SetSearch from "../SetSearch/SetSearch";
 import GetTopics from "../GetTopics/GetTopics";
 import GetAuthors from "../GetAuthors/GetAuthors";
+import GetPublishers from "../GetPublishers/GetPublishers";
 
-export function SearchSettings({ settings, setSettings, addResetFuncs }) {
+const emptyFunc = () => {};
+
+export function SearchSettings({ settings, setSettings, setResetFunc }) {
+  // Вспомогательные переменные
+  const fetchedRef = useRef(true);
+
+  // Данные
   let [topics, setTopics] = useState([]);
   let [authors, setAuthors] = useState([]);
   let [publishers, setPublishers] = useState([]);
 
+  let [resetSettings, setResetSettings] = useState({
+    resetTopics: emptyFunc,
+    resetAuthors: emptyFunc,
+    resetPublishers: emptyFunc,
+  });
+
+  useEffect(() => {
+    if (fetchedRef.current) {
+      fetchedRef.current = false;
+      return;
+    }
+    setResetFunc({
+      run: () => {
+        resetSettings.resetTopics();
+        resetSettings.resetAuthors();
+        resetSettings.resetPublishers();
+      },
+    });
+  }, [resetSettings]);
   return (
     <>
       <div>
@@ -85,7 +111,9 @@ export function SearchSettings({ settings, setSettings, addResetFuncs }) {
             setTopics(t);
             setSettings({ ...settings, topics: t.map((tt) => tt.id) });
           }}
-          addResetFuncs={addResetFuncs}
+          setReset={(p) =>
+            setResetSettings({ ...resetSettings, resetTopics: p })
+          }
         />
       </SetSearch>
 
@@ -107,7 +135,9 @@ export function SearchSettings({ settings, setSettings, addResetFuncs }) {
             setAuthors(a);
             setSettings({ ...settings, authors: a.map((aa) => aa.id) });
           }}
-          addResetFuncs={addResetFuncs}
+          setReset={(p) =>
+            setResetSettings({ ...resetSettings, resetAuthors: p })
+          }
         />
       </SetSearch>
 
@@ -123,6 +153,16 @@ export function SearchSettings({ settings, setSettings, addResetFuncs }) {
         }
       >
         <h1 style={{ textAlign: "center" }}>Издательства</h1>
+        <GetPublishers
+          selectedPublishers={publishers}
+          setSelectedPublishers={(p) => {
+            setPublishers(p);
+            setSettings({ ...settings, publishers: p.map((pp) => pp.id) });
+          }}
+          setReset={(p) =>
+            setResetSettings({ ...resetSettings, resetPublishers: p })
+          }
+        />
       </SetSearch>
     </>
   );
