@@ -10,7 +10,7 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 app.UseCors(options =>
-    options.WithOrigins("http://localhost:3000") //  Кому можно получать данные с сервера
+    options.WithOrigins("http://localhost") //  Кому можно получать данные с сервера
     .AllowAnyMethod()
     .AllowAnyHeader());
 
