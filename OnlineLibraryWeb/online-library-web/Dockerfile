@@ -4,6 +4,8 @@
 FROM node:18.12.1-alpine
 # WORKDIR создает и задает рабочую папку в контейнере
 WORKDIR /app
+COPY package.json /app
+RUN npm i
 # Копирует текущее содержимое директории в рабочую папку (/app)
 COPY . .
 # Сборка проекра
