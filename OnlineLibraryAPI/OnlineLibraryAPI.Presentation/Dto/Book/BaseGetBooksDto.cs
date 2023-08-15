@@ -11,6 +11,8 @@
     /// int? NumberPagesMax - Максимальное количество станиц,
     /// int? NumberAdditionsNotesMin - Минимальное количество добавления в заметки,
     /// int? NumberAdditionsNotesMax - Максимальное количество добавления в заметки,
+    /// int? NumberDownloadsMin - Минимальное количество скачиваний,
+    /// int? NumberDownloadsMax - Максимальное количество скачиваний,
     /// Guid? LanguageId - Id языка,
     /// bool MustHaveAllTopics - Должен ли иметь все введенные категории,
     /// List Guid? Topics - Категории,
@@ -53,6 +55,16 @@
         /// Максимальное количество добавления в заметки
         /// </summary>
         public int? NumberAdditionsNotesMax { get; set; }
+
+        /// <summary>
+        /// Минимальное количество скачиваний
+        /// </summary>
+        public int? NumberDownloadsMin { get; set; }
+
+        /// <summary>
+        /// Максимальное количество скачиваний
+        /// </summary>
+        public int? NumberDownloadsMax { get; set; }
 
         /// <summary>
         /// Должен ли иметь все введенные категории

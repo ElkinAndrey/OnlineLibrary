@@ -95,6 +95,26 @@ export function SearchSettings({ settings, setSettings, setResetFunc }) {
           })
         }
       />
+      <InputNumder
+        text={"Минимальное количество скачиваний: "}
+        value={settings.numberDownloadsMin}
+        setValue={(v) =>
+          setSettings({
+            ...settings,
+            numberDownloadsMin: getNullIfZero(v),
+          })
+        }
+      />
+      <InputNumder
+        text={"Максимальное количество скачиваний: "}
+        value={settings.numberDownloadsMax}
+        setValue={(v) =>
+          setSettings({
+            ...settings,
+            numberDownloadsMax: getNullIfZero(v),
+          })
+        }
+      />
 
       <SetSearchLanguage
         settings={settings}

@@ -11,6 +11,8 @@
     /// int? NumberPagesMax - Максимальное количество станиц,
     /// int? NumberAdditionsNotesMin - Минимальное количество добавления в заметки,
     /// int? NumberAdditionsNotesMax - Максимальное количество добавления в заметки,
+    /// int? NumberDownloadsMin - Минимальное количество скачиваний,
+    /// int? NumberDownloadsMax - Максимальное количество скачиваний,
     /// bool MustHaveAllTopics - Должен ли иметь все введенные категории,
     /// Guid? LanguageId - Id языка,
     /// List Guid? Topics - Категории,

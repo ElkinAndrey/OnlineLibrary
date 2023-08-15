@@ -122,11 +122,13 @@ const Books = () => {
             <th>Темы</th>
             <th>Количество страниц</th>
             <th>В заметках</th>
+            <th>Скачиваний</th>
+            <th>Открыть</th>
           </tr>
         </thead>
         <tbody>
           {books.map((book) => (
-            <tr key={book.id}>
+            <tr key={book.bookEditionLanguageId}>
               <td>{book.name}</td>
               <td>{book.editionNumber}</td>
               <td>{book.authors.join(", ")}</td>
@@ -135,6 +137,12 @@ const Books = () => {
               <td>{book.topics.join(", ")}</td>
               <td>{book.numberPages}</td>
               <td>{book.numberAdditionsNotes}</td>
+              <td>{book.numberDownloads}</td>
+              <td>
+                <button onClick={() => console.log(book.bookEditionLanguageId)}>
+                  Открыть
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>

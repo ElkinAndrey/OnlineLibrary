@@ -9,6 +9,7 @@ namespace OnlineLibraryAPI.Presentation.Dto.Language
     /// int Start - Начало отчета,
     /// int Length - Длина среза,
     /// string? Name - Часть названия,
+    /// Guid? BookEditionId - Id издания книги, у которого нужно искать язык
     /// </remarks>
     public class GetLanguagesDto : BaseGetLanguagesDto, IGetCutDto
     {
