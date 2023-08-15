@@ -1,50 +1,84 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineLibraryAPI.Presentation.Dto.Author;
 
-namespace OnlineLibraryAPI.Presentation.Controllers
+namespace OnlineLibraryAPI.Presentation.Controllers;
+
+/// <summary>
+/// Контроллер для работы с авторами
+/// </summary>
+[Route("api/authors")]
+[ApiController]
+public class AuthorController : ControllerBase
 {
     /// <summary>
-    /// Контроллер для работы с авторами
+    /// Получить список авторов
     /// </summary>
-    [Route("api/authors")]
-    [ApiController]
-    public class AuthorController : ControllerBase
+    [HttpPost]
+    [Route("")]
+    public async Task<IActionResult> GetAuthors([FromBody] GetAuthorsDto record)
     {
-        /// <summary>
-        /// Получить список авторов
-        /// </summary>
-        [HttpPost]
-        [Route("")]
-        public async Task<IActionResult> GetAuthors([FromBody] GetAuthorsDto record)
+        return Ok(new List<object>()
         {
-            return Ok(new List<object>()
+            new
             {
-                new
-                {
-                    Id = new Guid("00000000-0000-0000-0000-456780127459"),
-                    Name = "Григорий Перельман",
-                },
-                new
-                {
-                    Id = new Guid("00000000-0000-0000-0000-072581860716"),
-                    Name = "Бьерн Страуструп",
-                },
-                new
-                {
-                    Id = new Guid("00000000-0000-0000-0000-762356361361"),
-                    Name = "Дональд Кнуд",
-                },
-            });
-        }
-
-        /// <summary>
-        /// Получить количество авторов
-        /// </summary>
-        [HttpPost]
-        [Route("count")]
-        public async Task<IActionResult> GetAuthorsCount([FromBody] GetAuthorsCountDto record)
+                Id = new Guid("00000000-0000-0000-0000-456780127459"),
+                Name = "Григорий Перельман",
+            },
+            new
+            {
+                Id = new Guid("00000000-0000-0000-0000-072581860716"),
+                Name = "Бьерн Страуструп",
+            },
+            new
+            {
+                Id = new Guid("00000000-0000-0000-0000-762356361361"),
+                Name = "Дональд Кнуд",
+            },
+        });
+    }
+    /// <summary>
+    /// Получить информацию об авторе по Guid
+    /// </summary>
+    [HttpGet("GetById")]
+    public async Task<IActionResult> GetById(Guid id) 
+    {
+        return Ok(new
         {
-            return Ok(56);
-        }
+            Id = new Guid("00000000-0000-0000-0000-456780127459"),
+            Name = "Григорий Перельман",
+        });
+    }
+    /// <summary>
+    /// Создать нового автора
+    /// </summary>
+    [HttpPost("Create")]
+    public async Task<IActionResult> Create([FromBody] CreateAuthorDto authorDto) 
+    {
+        return Ok();
+    }
+    /// <summary>
+    /// Обновить информацию об авторе
+    /// </summary>
+    [HttpPatch("Update")]
+    public async Task<IActionResult> Update([FromBody] UpdateAuthorDto authorDto) 
+    {
+        return Ok();
+    }
+    /// <summary>
+    /// Удалить автора по Guid
+    /// </summary>
+    [HttpDelete("Delete")]
+    public async Task<IActionResult> Delete([FromBody] Guid id) 
+    {
+        return Ok();
+    }
+    /// <summary>
+    /// Получить количество авторов
+    /// </summary>
+    [HttpPost]
+    [Route("count")]
+    public async Task<IActionResult> GetAuthorsCount([FromBody] GetAuthorsCountDto record)
+    {
+        return Ok(56);
     }
 }

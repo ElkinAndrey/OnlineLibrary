@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OnlineLibraryAPI.Presentation.Dto.Author;
 using OnlineLibraryAPI.Presentation.Dto.PublishingHouse;
 
 namespace OnlineLibraryAPI.Presentation.Controllers
@@ -41,6 +42,44 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         public async Task<IActionResult> GetPublishingHousesCount([FromBody] GetPublishingHousesCountDto record)
         {
             return Ok(56);
+        }
+        /// <summary>
+        /// Получить информацию о издательстве по Guid
+        /// </summary>
+        [HttpGet("GetById")]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            return Ok(
+               new
+               {
+                   Id = new Guid("00000000-0000-0000-0000-798164716678"),
+                   Name = "ООО Издательство «Питер»"
+               }
+            );
+        }
+        /// <summary>
+        /// Создать новое издательство
+        /// </summary>
+        [HttpPost("Create")]
+        public async Task<IActionResult> Create([FromBody] PublishingHouseCreateDto publishingHouseDto)
+        {
+            return Ok();
+        }
+        /// <summary>
+        /// Обновить информацию о издательстве
+        /// </summary>
+        [HttpPatch("Update")]
+        public async Task<IActionResult> Update([FromBody] PublishingHouseUpdateDto publishingHouseDto)
+        {
+            return Ok();
+        }
+        /// <summary>
+        /// Удалить издательство по Guid
+        /// </summary>
+        [HttpDelete("Delete")]
+        public async Task<IActionResult> Delete([FromBody] Guid id)
+        {
+            return Ok();
         }
     }
 }
