@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineLibraryAPI.Presentation.Dto.Book;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace OnlineLibraryAPI.Presentation.Controllers
 {
@@ -29,6 +30,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
                     NumberPages = 983,
                     EditionNumber = "Издание 1",
                     NumberAdditionsNotes = 1242,
+                    NumberDownloads = 10255,
                     Topics = new List<object>() { "Программирование", "Матемтика" },
                     Authors = new List<object>() { "Дональд Кнуд", "Дэниель Абрамов" },
                     Publishers = new List<object>() { "БХВ-Петербург" },
@@ -50,6 +52,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
                     NumberPages = 896,
                     EditionNumber = "4-е издание",
                     NumberAdditionsNotes = 430,
+                    NumberDownloads = 2004,
                     Topics = new List<object>() { "Программирование" },
                     Authors = new List<object>() { "Джеффри Рихтер" },
                     Publishers = new List<object>() { "ООО Издательство «Питер»" },
@@ -58,7 +61,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
                         Id = "00000000-0000-0000-0000-657849819657",
                         Name = "English",
                         EnglishName = "English",
-                        Abbreviation = "EN"
+                        Abbreviation = "EN",
                     },
                 },
             });
@@ -72,6 +75,60 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         public async Task<IActionResult> GetBooksCount([FromBody] GetBooksCountDto record)
         {
             return Ok(123);
+        }
+
+        /// <summary>
+        /// Получить книгу по Id
+        /// </summary>
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetBookById(Guid id)
+        {
+            return Ok(
+                new
+                {
+                    BookId = new Guid("00000000-0000-0000-0000-513513513511"),
+                    BookEditionId = new Guid("00000000-0000-0000-0000-875683898523"),
+                    BookEditionLanguageId = new Guid("00000000-0000-0000-0000-732677635525"),
+                    Name = "ASP.NET Сборник рецептов",
+                    GeneralDescription = "В книге собраны практические советы и примеры, которые помогут при создании веб-приложений с использованием ASP.NET: разработка архитектуры веб-приложения, его отладка, профилирование, защита, конфигурирование, работа с данными и многое другое. Рассмотрены специальные инструменты и утилиты, которые позволяют ускорить и упростить разработку и отладку веб-приложений. Уделено внимание обработке исключений в вебприложениях. Отдельная глава посвящена созданию отчетов в MS Excel. Книга будет полезна не только программистам, которые уже используют в своих разработках ASP.NET, но и тем, кто переходит на технологию ASP.NET с классической ASP или языка PHP. На компакт-диске приведен исходный код рассмотренных примеров.",
+                    Year = 2015,
+                    Description = "Данная книга для программистов-практиков. Не ищите в ней теоретических знаний — для этого есть множество замечательных изданий. Эта книга — набор готовых решений, советов и исходного кода. Предполагается, что читатель знаком с синтаксисом языка C#, имеет хотя бы небольшой опыт работы с ASP.NET и представление об архитектуре платформы .NET. Знания HTML и JavaScript тоже будут очень желательны, но не обязательны. Как минимум, слова \"скрипт\", \"postback\", \"база данных\", JavaScript, CSS, стили и т. д. не должны пугать новизной. Иначе, лучше начать с книги-введения в ASP.NET.",
+                    NumberPages = 983,
+                    EditionNumber = "Издание 1",
+                    NumberAdditionsNotes = 1242,
+                    NumberDownloads = 10255,
+                    Topics = new List<object>() { "Программирование", "Матемтика" },
+                    Authors = new List<object>() { "Дональд Кнуд", "Дэниель Абрамов" },
+                    Publishers = new List<object>() { "БХВ-Петербург" },
+                    Language = new
+                    {
+                        Id = "00000000-0000-0000-0000-676175725156",
+                        Name = "Русский",
+                        EnglishName = "Russian",
+                        Abbreviation = "RU"
+                    },
+                    BooksSameEdition = new List<object>()
+                    {
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-986135766173"),
+                            Year = 2016,
+                            Description = "Данная книга для программистов-практиков. Не ищите в ней теоретических знаний — для этого есть множество замечательных изданий. Эта книга — набор готовых решений, советов и исходного кода. Предполагается, что читатель знаком с синтаксисом языка C#, имеет хотя бы небольшой опыт работы с ASP.NET и представление об архитектуре платформы .NET. Знания HTML и JavaScript тоже будут очень желательны, но не обязательны. Как минимум, слова \"скрипт\", \"postback\", \"база данных\", JavaScript, CSS, стили и т. д. не должны пугать новизной. Иначе, лучше начать с книги-введения в ASP.NET.",
+                            NumberPages = 956,
+                            EditionNumber = "Издание 2",
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-713785781783"),
+                            Year = 2018,
+                            Description = "Данная книга для программистов-практиков. Не ищите в ней теоретических знаний — для этого есть множество замечательных изданий. Эта книга — набор готовых решений, советов и исходного кода. Предполагается, что читатель знаком с синтаксисом языка C#, имеет хотя бы небольшой опыт работы с ASP.NET и представление об архитектуре платформы .NET. Знания HTML и JavaScript тоже будут очень желательны, но не обязательны. Как минимум, слова \"скрипт\", \"postback\", \"база данных\", JavaScript, CSS, стили и т. д. не должны пугать новизной. Иначе, лучше начать с книги-введения в ASP.NET.",
+                            NumberPages = 1004,
+                            EditionNumber = "Издание 3",
+                        }
+                    },
+                }
+            );
         }
     }
 }
