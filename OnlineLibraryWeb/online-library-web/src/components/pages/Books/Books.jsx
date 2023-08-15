@@ -3,6 +3,7 @@ import { useFetching } from "../../../hooks/useFetching";
 import BooksApi from "../../../api/booksApi";
 import { SearchSettings } from "../../../views/SearchSettings/SearchSettings";
 import PaginationBar from "../../forms/PaginationBar/PaginationBar";
+import { Link } from "react-router-dom";
 
 /**Количество книг на странице */
 const pageSize = 20;
@@ -139,9 +140,7 @@ const Books = () => {
               <td>{book.numberAdditionsNotes}</td>
               <td>{book.numberDownloads}</td>
               <td>
-                <button onClick={() => console.log(book.bookEditionLanguageId)}>
-                  Открыть
-                </button>
+                <Link to={book.bookEditionLanguageId}>Открыть</Link>
               </td>
             </tr>
           ))}

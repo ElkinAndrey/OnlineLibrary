@@ -13,4 +13,19 @@ export default class BooksApi {
     const response = await axios.post(`${URL}/count`, settings);
     return response;
   }
+
+  static async getBookById(id) {
+    const response = await axios.get(`${URL}/${id}`);
+    return response;
+  }
+
+  static async getBookEditionLanguages(settings) {
+    const response = await axios.post(`${URL}/language`, settings);
+    return response;
+  }
+
+  static async getBookEditionLanguagesCount(settings) {
+    const response = await axios.post(`${URL}/language/count`, settings);
+    return response;
+  }
 }

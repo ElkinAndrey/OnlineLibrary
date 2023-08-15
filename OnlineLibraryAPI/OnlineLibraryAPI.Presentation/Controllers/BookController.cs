@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineLibraryAPI.Presentation.Dto.Book;
+using System.Xml.Linq;
 using static System.Reflection.Metadata.BlobBuilder;
 
 namespace OnlineLibraryAPI.Presentation.Controllers
@@ -86,7 +87,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         /// </summary>
         [HttpGet]
         [Route("{id}")]
-        public async Task<IActionResult> GetBookById(Guid id)
+        public async Task<IActionResult> GetBookById(Guid bookEditionLanguageid)
         {
             return Ok(
                 new
@@ -112,27 +113,97 @@ namespace OnlineLibraryAPI.Presentation.Controllers
                         EnglishName = "Russian",
                         Abbreviation = "RU"
                     },
+                    FileExtensions = new List<object>() 
+                    { 
+                        new 
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-712757818252"),
+                            Name = "png"
+                        }, 
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-879881242142"),
+                            Name = "epub"
+                        } 
+                    },
                     BooksSameEdition = new List<object>()
                     {
                         new
                         {
-                            Id = new Guid("00000000-0000-0000-0000-986135766173"),
+                            BookEditionId = new Guid("00000000-0000-0000-0000-986135766173"),
+                            BookEditionLanguageId = new Guid("00000000-0000-0000-0000-767117571235"),
                             Year = 2016,
                             Description = "Данная книга для программистов-практиков. Не ищите в ней теоретических знаний — для этого есть множество замечательных изданий. Эта книга — набор готовых решений, советов и исходного кода. Предполагается, что читатель знаком с синтаксисом языка C#, имеет хотя бы небольшой опыт работы с ASP.NET и представление об архитектуре платформы .NET. Знания HTML и JavaScript тоже будут очень желательны, но не обязательны. Как минимум, слова \"скрипт\", \"postback\", \"база данных\", JavaScript, CSS, стили и т. д. не должны пугать новизной. Иначе, лучше начать с книги-введения в ASP.NET.",
+                            NumberAdditionsNotes = 155,
                             NumberPages = 956,
                             EditionNumber = "Издание 2",
+                            NumberDownloads = 2512,
                         },
                         new
                         {
-                            Id = new Guid("00000000-0000-0000-0000-713785781783"),
+                            BookEditionId = new Guid("00000000-0000-0000-0000-713785781783"),
+                            BookEditionLanguageId = new Guid("00000000-0000-0000-0000-786781257125"),
                             Year = 2018,
                             Description = "Данная книга для программистов-практиков. Не ищите в ней теоретических знаний — для этого есть множество замечательных изданий. Эта книга — набор готовых решений, советов и исходного кода. Предполагается, что читатель знаком с синтаксисом языка C#, имеет хотя бы небольшой опыт работы с ASP.NET и представление об архитектуре платформы .NET. Знания HTML и JavaScript тоже будут очень желательны, но не обязательны. Как минимум, слова \"скрипт\", \"postback\", \"база данных\", JavaScript, CSS, стили и т. д. не должны пугать новизной. Иначе, лучше начать с книги-введения в ASP.NET.",
+                            NumberAdditionsNotes = 51,
                             NumberPages = 1004,
                             EditionNumber = "Издание 3",
+                            NumberDownloads = 623,
                         }
                     },
                 }
             );
+        }
+
+        /// <summary>
+        /// Получить список с таким же изданием этой же книги, но на других языках
+        /// </summary>
+        [HttpPost]
+        [Route("language")]
+        public async Task<IActionResult> GetBookEditionLanguages([FromBody] GetBookEditionLanguagesCountDto model)
+        {
+            return Ok(new List<object>()
+                {
+                    new
+                    {
+                        BookEditionLanguageId = new Guid("00000000-0000-0000-0000-767117571235"),
+                        NumberPages = 956,
+                        NumberAdditionsNotes = 155,
+                            NumberDownloads = 2512,
+                        Language = new
+                        {
+                            Id = "00000000-0000-0000-0000-657849819657",
+                            Name = "English",
+                            EnglishName = "English",
+                            Abbreviation = "EN"
+                        },
+                    },
+                    new
+                    {
+                        BookEditionLanguageId = new Guid("00000000-0000-0000-0000-786781257125"),
+                        NumberPages = 1004,
+                        NumberAdditionsNotes = 125,
+                        NumberDownloads = 651,
+                        Language = new
+                        {
+                            Id = "00000000-0000-0000-0000-565787564746",
+                            Name = "Український",
+                            EnglishName = "Ukrainian",
+                            Abbreviation = "UA"
+                        },
+                    }
+                }
+            );
+        }
+
+        /// <summary>
+        /// Получить количество таких же изданий этой же книги, но на других языках
+        /// </summary>
+        [HttpPost]
+        [Route("language/count")]
+        public async Task<IActionResult> GetBookEditionLanguagesCount([FromBody] GetBookEditionLanguagesCountDto model)
+        {
+            return Ok(21);
         }
     }
 }

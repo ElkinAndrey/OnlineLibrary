@@ -1,11 +1,14 @@
 import React from "react";
 import "./App.css";
-import Books from "./components/pages/Books/Books";
+import { BrowserRouter } from "react-router-dom";
+import AppRouter from "./router/AppRouter/AppRouter";
 
 function App() {
   return (
     <>
-      <Books />
+      <BrowserRouter>
+        <AppRouter />
+      </BrowserRouter>
     </>
   );
 }
