@@ -2,16 +2,24 @@ version: '3.4'
 
 services:
   backend:
-    image: ${DOCKER_REGISTRY-}onlinelibraryapipresentation
+    image: ${DOCKER_REGISTRY-}backend_image
+    container_name: library_backend
     build:
       context: .
-      dockerfile: OnlineLibraryAPI/OnlineLibraryAPI.Presentation/Dockerfile
+      dockerfile: ./OnlineLibraryAPI/OnlineLibraryAPI.Presentation/Dockerfile
 
   client:
-    image: client
+    image: ${DOCKER_REGISTRY-}client_image
+    container_name: library_client
     build:
       context: ./OnlineLibraryWeb/online-library-web
       dockerfile: Dockerfile
+    depends_on:
+      - backend
 
-  proxy:
+  proxy:  
     image: nginx:mainline
+    container_name: library_proxy
+    depends_on:
+      - backend
+      - client
