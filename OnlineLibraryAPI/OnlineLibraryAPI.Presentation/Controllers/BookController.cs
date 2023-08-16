@@ -15,8 +15,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         /// <summary>
         /// Получить список книг
         /// </summary>
-        [HttpPost]
-        [Route("")]
+        [HttpPost("get")]
         public async Task<IActionResult> GetBooks([FromBody] GetBooksDto record)
         {
             return Ok(new List<object>()
@@ -75,8 +74,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         /// <summary>
         /// Получить количество книг
         /// </summary>
-        [HttpPost]
-        [Route("count")]
+        [HttpPost("count")]
         public async Task<IActionResult> GetBooksCount([FromBody] GetBooksCountDto record)
         {
             return Ok(123);
@@ -85,9 +83,8 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         /// <summary>
         /// Получить книгу по Id
         /// </summary>
-        [HttpGet]
-        [Route("{id}")]
-        public async Task<IActionResult> GetBookById(Guid bookEditionLanguageid)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetBookById([FromRoute] Guid bookEditionLanguageid)
         {
             return Ok(
                 new
@@ -158,8 +155,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         /// <summary>
         /// Получить список с таким же изданием этой же книги, но на других языках
         /// </summary>
-        [HttpPost]
-        [Route("language")]
+        [HttpPost("language")]
         public async Task<IActionResult> GetBookEditionLanguages([FromBody] GetBookEditionLanguagesCountDto model)
         {
             return Ok(new List<object>()
@@ -199,8 +195,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         /// <summary>
         /// Получить количество таких же изданий этой же книги, но на других языках
         /// </summary>
-        [HttpPost]
-        [Route("language/count")]
+        [HttpPost("language/count")]
         public async Task<IActionResult> GetBookEditionLanguagesCount([FromBody] GetBookEditionLanguagesCountDto model)
         {
             return Ok(21);

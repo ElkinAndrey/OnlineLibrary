@@ -2,10 +2,8 @@
 
 namespace OnlineLibraryAPI.Presentation.Dto.PublishingHouse;
 
-public class PublishingHouseUpdateDto
+public class UpdatePublishingHouseDto
 {
-    [Required]
-    public Guid Id { get; set; }
     [Required]
     public string Name { get; set; }
 }

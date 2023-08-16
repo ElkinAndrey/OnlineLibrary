@@ -2,7 +2,7 @@
 
 namespace OnlineLibraryAPI.Presentation.Dto.PublishingHouse;
 
-public class PublishingHouseCreateDto
+public class CreatePublishingHouseDto
 {
     [Required]
     public string Name { get; set; }

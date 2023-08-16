@@ -13,8 +13,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         /// <summary>
         /// Получить список категорий книг
         /// </summary>
-        [HttpPost]
-        [Route("")]
+        [HttpPost("get")]
         public async Task<IActionResult> GetTopics([FromBody] GetTopicsDto record)
         {
             return Ok(new List<object>()
@@ -40,8 +39,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         /// <summary>
         /// Получить количество книг
         /// </summary>
-        [HttpPost]
-        [Route("count")]
+        [HttpPost("count")]
         public async Task<IActionResult> GetTopicsCount([FromBody] GetTopicsCountDto record)
         {
             return Ok(145);

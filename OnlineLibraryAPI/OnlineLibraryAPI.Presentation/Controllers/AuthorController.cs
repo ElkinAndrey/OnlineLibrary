@@ -13,8 +13,7 @@ public class AuthorController : ControllerBase
     /// <summary>
     /// Получить список авторов
     /// </summary>
-    [HttpPost]
-    [Route("")]
+    [HttpPost("get")]
     public async Task<IActionResult> GetAuthors([FromBody] GetAuthorsDto record)
     {
         return Ok(new List<object>()
@@ -39,8 +38,8 @@ public class AuthorController : ControllerBase
     /// <summary>
     /// Получить информацию об авторе по Guid
     /// </summary>
-    [HttpGet("GetById")]
-    public async Task<IActionResult> GetById(Guid id) 
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetById([FromRoute]Guid id) 
     {
         return Ok(new
         {
@@ -51,7 +50,7 @@ public class AuthorController : ControllerBase
     /// <summary>
     /// Создать нового автора
     /// </summary>
-    [HttpPost("Create")]
+    [HttpPost("")]
     public async Task<IActionResult> Create([FromBody] CreateAuthorDto authorDto) 
     {
         return Ok();
@@ -59,24 +58,23 @@ public class AuthorController : ControllerBase
     /// <summary>
     /// Обновить информацию об авторе
     /// </summary>
-    [HttpPatch("Update")]
-    public async Task<IActionResult> Update([FromBody] UpdateAuthorDto authorDto) 
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateAuthorDto authorDto) 
     {
         return Ok();
     }
     /// <summary>
     /// Удалить автора по Guid
     /// </summary>
-    [HttpDelete("Delete")]
-    public async Task<IActionResult> Delete([FromBody] Guid id) 
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete([FromRoute] Guid id) 
     {
         return Ok();
     }
     /// <summary>
     /// Получить количество авторов
     /// </summary>
-    [HttpPost]
-    [Route("count")]
+    [HttpPost("count")]
     public async Task<IActionResult> GetAuthorsCount([FromBody] GetAuthorsCountDto record)
     {
         return Ok(56);

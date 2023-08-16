@@ -5,8 +5,6 @@ namespace OnlineLibraryAPI.Presentation.Dto.Language;
 public class UpdateLanguageDto
 {
     [Required]
-    public Guid Id { get; set; }
-    [Required]
     public string Name { get; set; }
     [Required]
     public string EnglishName { get; set; }

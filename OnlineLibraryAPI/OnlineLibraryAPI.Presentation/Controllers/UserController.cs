@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace OnlineLibraryAPI.Presentation.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/users")]
     [ApiController]
     public class UserController : ControllerBase
     {
-        [HttpGet("Count")]
+        [HttpPost("count")]
         public async Task<IActionResult> Count() 
         {
             return Ok(30);

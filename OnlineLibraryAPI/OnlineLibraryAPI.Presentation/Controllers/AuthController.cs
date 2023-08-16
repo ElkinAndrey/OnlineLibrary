@@ -4,14 +4,14 @@ using OnlineLibraryAPI.Presentation.Dto.Auth;
 
 namespace OnlineLibraryAPI.Presentation.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/auth")]
 [ApiController]
 public class AuthController : ControllerBase
 {
     /// <summary>
     /// Создать нового пользователя
     /// </summary>
-    [HttpPost("Register")]
+    [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterDto registerDto) 
     {
         return Ok();
@@ -19,7 +19,7 @@ public class AuthController : ControllerBase
     /// <summary>
     /// Войти (получить access- и refresh- токены)
     /// </summary>
-    [HttpPost("Login")]
+    [HttpPost("login")]
     public async Task<IActionResult> LoginDto([FromBody] LoginDto loginDto) 
     {
         return Ok(1);
@@ -27,7 +27,7 @@ public class AuthController : ControllerBase
     /// <summary>
     /// Выйти из аккаунта (удалить refresh-токен)
     /// </summary>
-    [HttpPost("Logout")]
+    [HttpPost("logout")]
     public async Task<IActionResult> Logout() 
     {
         return Ok();
@@ -35,7 +35,7 @@ public class AuthController : ControllerBase
     /// <summary>
     /// Получить информацию о своём аккаунте
     /// </summary>
-    [HttpPost("AboutMe")]
+    [HttpPost("aboutme")]
     public async Task<IActionResult> AboutMe() 
     {
         return Ok(

@@ -15,8 +15,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         /// <summary>
         /// Получить список издательств
         /// </summary>
-        [HttpPost]
-        [Route("")]
+        [HttpPost("get")]
         public async Task<IActionResult> GetPublishingHouses([FromBody] GetPublishingHousesDto record)
         {
             return Ok(new List<object>()
@@ -37,8 +36,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         /// <summary>
         /// Получить количество издательств
         /// </summary>
-        [HttpPost]
-        [Route("count")]
+        [HttpPost("count")]
         public async Task<IActionResult> GetPublishingHousesCount([FromBody] GetPublishingHousesCountDto record)
         {
             return Ok(56);
@@ -46,8 +44,8 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         /// <summary>
         /// Получить информацию о издательстве по Guid
         /// </summary>
-        [HttpGet("GetById")]
-        public async Task<IActionResult> GetById(Guid id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
             return Ok(
                new
@@ -60,24 +58,24 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         /// <summary>
         /// Создать новое издательство
         /// </summary>
-        [HttpPost("Create")]
-        public async Task<IActionResult> Create([FromBody] PublishingHouseCreateDto publishingHouseDto)
+        [HttpPost("")]
+        public async Task<IActionResult> Create([FromBody] CreatePublishingHouseDto publishingHouseDto)
         {
             return Ok();
         }
         /// <summary>
         /// Обновить информацию о издательстве
         /// </summary>
-        [HttpPatch("Update")]
-        public async Task<IActionResult> Update([FromBody] PublishingHouseUpdateDto publishingHouseDto)
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdatePublishingHouseDto publishingHouseDto)
         {
             return Ok();
         }
         /// <summary>
         /// Удалить издательство по Guid
         /// </summary>
-        [HttpDelete("Delete")]
-        public async Task<IActionResult> Delete([FromBody] Guid id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             return Ok();
         }

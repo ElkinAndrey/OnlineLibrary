@@ -15,8 +15,7 @@ public class LanguageController : ControllerBase
     /// <summary>
     /// Получить список языков
     /// </summary>
-    [HttpPost]
-    [Route("")]
+    [HttpPost("get")]
     public async Task<IActionResult> GetLanguages([FromBody] GetLanguagesDto record)
     {
         return Ok(new List<object>()
@@ -48,8 +47,7 @@ public class LanguageController : ControllerBase
     /// <summary>
     /// Получить количество языков
     /// </summary>
-    [HttpPost]
-    [Route("count")]
+    [HttpPost("count")]
     public async Task<IActionResult> GetLanguagesCount([FromBody] GetLanguagesCountDto record)
     {
         return Ok(32);
@@ -57,8 +55,8 @@ public class LanguageController : ControllerBase
     /// <summary>
     /// Получить информацию об языке по Guid
     /// </summary>
-    [HttpGet("GetById")]
-    public async Task<IActionResult> GetById(Guid id)
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetById([FromRoute] Guid id)
     {
         return Ok(new
         {
@@ -71,7 +69,7 @@ public class LanguageController : ControllerBase
     /// <summary>
     /// Создать новый язык
     /// </summary>
-    [HttpPost("Create")]
+    [HttpPost("")]
     public async Task<IActionResult> Create([FromBody] CreateLanguageDto languageDto)
     {
         return Ok();
@@ -79,16 +77,16 @@ public class LanguageController : ControllerBase
     /// <summary>
     /// Обновить информацию об языке
     /// </summary>
-    [HttpPatch("Update")]
-    public async Task<IActionResult> Update([FromBody] UpdateLanguageDto languageDto)
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateLanguageDto languageDto)
     {
         return Ok();
     }
     /// <summary>
     /// Удалить язык по Guid
     /// </summary>
-    [HttpDelete("Delete")]
-    public async Task<IActionResult> Delete([FromBody] Guid id)
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
         return Ok();
     }
