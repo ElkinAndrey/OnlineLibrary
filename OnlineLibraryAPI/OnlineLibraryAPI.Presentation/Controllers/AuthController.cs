@@ -45,4 +45,12 @@ public class AuthController : ControllerBase
             }
         );
     }
+    /// <summary>
+    /// Удалить свой аккаунт
+    /// </summary>
+    [HttpDelete("")]
+    public async Task<IActionResult> DeleteAccount() 
+    {
+        return Ok();
+    }
 }

@@ -7,6 +7,9 @@ namespace OnlineLibraryAPI.Presentation.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        /// <summary>
+        /// Получить кол-во пользователей
+        /// </summary>
         [HttpPost("count")]
         public async Task<IActionResult> Count() 
         {
