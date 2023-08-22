@@ -35,6 +35,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
                 },
             });
         }
+
         /// <summary>
         /// Получить категорию по guid
         /// </summary>
@@ -47,6 +48,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
                 Name = "Алгоритмы",
             });
         }
+
         /// <summary>
         /// Получить количество книг в категории
         /// </summary>
@@ -55,6 +57,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         {
             return Ok(145);
         }
+
         /// <summary>
         /// Создать категорию
         /// </summary>
@@ -63,6 +66,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         {
             return Ok();
         }
+
         /// <summary>
         /// Обновить категорию
         /// </summary>
@@ -71,6 +75,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         {
             return Ok();
         }
+
         /// <summary>
         /// Удалить категорию
         /// </summary>

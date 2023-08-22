@@ -35,6 +35,7 @@ public class AuthorController : ControllerBase
             },
         });
     }
+
     /// <summary>
     /// Получить информацию об авторе по Guid
     /// </summary>
@@ -47,6 +48,7 @@ public class AuthorController : ControllerBase
             Name = "Григорий Перельман",
         });
     }
+
     /// <summary>
     /// Создать нового автора
     /// </summary>
@@ -55,6 +57,7 @@ public class AuthorController : ControllerBase
     {
         return Ok();
     }
+
     /// <summary>
     /// Обновить информацию об авторе
     /// </summary>
@@ -63,6 +66,7 @@ public class AuthorController : ControllerBase
     {
         return Ok();
     }
+
     /// <summary>
     /// Удалить автора по Guid
     /// </summary>
@@ -71,6 +75,7 @@ public class AuthorController : ControllerBase
     {
         return Ok();
     }
+
     /// <summary>
     /// Получить количество авторов
     /// </summary>

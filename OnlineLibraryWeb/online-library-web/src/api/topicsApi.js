@@ -5,7 +5,7 @@ const URL = `${defaultURL}/topics`;
 
 export default class TopicsApi {
   static async getTopics(settings) {
-    const response = await axios.post(`${URL}`, settings);
+    const response = await axios.post(`${URL}/get`, settings);
     return response;
   }
 

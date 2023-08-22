@@ -5,7 +5,7 @@ const URL = `${defaultURL}/publishers`;
 
 export default class PublishersApi {
   static async getPublishers(settings) {
-    const response = await axios.post(`${URL}`, settings);
+    const response = await axios.post(`${URL}/get`, settings);
     return response;
   }
 

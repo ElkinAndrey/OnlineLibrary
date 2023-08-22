@@ -41,6 +41,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         {
             return Ok(56);
         }
+
         /// <summary>
         /// Получить информацию о издательстве по Guid
         /// </summary>
@@ -55,6 +56,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
                }
             );
         }
+
         /// <summary>
         /// Создать новое издательство
         /// </summary>
@@ -63,6 +65,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         {
             return Ok();
         }
+
         /// <summary>
         /// Обновить информацию о издательстве
         /// </summary>
@@ -71,6 +74,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         {
             return Ok();
         }
+
         /// <summary>
         /// Удалить издательство по Guid
         /// </summary>

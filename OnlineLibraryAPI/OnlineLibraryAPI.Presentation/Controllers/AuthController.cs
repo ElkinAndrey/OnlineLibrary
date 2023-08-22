@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OnlineLibraryAPI.Presentation.Dto.Auth;
 
 namespace OnlineLibraryAPI.Presentation.Controllers;
@@ -16,6 +15,7 @@ public class AuthController : ControllerBase
     {
         return Ok();
     }
+
     /// <summary>
     /// Войти (получить access- и refresh- токены)
     /// </summary>
@@ -24,6 +24,7 @@ public class AuthController : ControllerBase
     {
         return Ok(1);
     }
+
     /// <summary>
     /// Выйти из аккаунта (удалить refresh-токен)
     /// </summary>
@@ -32,10 +33,11 @@ public class AuthController : ControllerBase
     {
         return Ok();
     }
+
     /// <summary>
     /// Получить информацию о своём аккаунте
     /// </summary>
-    [HttpPost("aboutme")]
+    [HttpPost("about")]
     public async Task<IActionResult> AboutMe() 
     {
         return Ok(
@@ -45,10 +47,11 @@ public class AuthController : ControllerBase
             }
         );
     }
+
     /// <summary>
     /// Удалить свой аккаунт
     /// </summary>
-    [HttpDelete("")]
+    [HttpDelete("delete")]
     public async Task<IActionResult> DeleteAccount() 
     {
         return Ok();

@@ -5,7 +5,7 @@ const URL = `${defaultURL}/authors`;
 
 export default class AuthorsApi {
   static async getAuthors(settings) {
-    const response = await axios.post(`${URL}`, settings);
+    const response = await axios.post(`${URL}/get`, settings);
     return response;
   }
 

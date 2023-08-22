@@ -5,7 +5,7 @@ const URL = `${defaultURL}/books`;
 
 export default class BooksApi {
   static async getBooks(settings) {
-    const response = await axios.post(`${URL}`, settings);
+    const response = await axios.post(`${URL}/get`, settings);
     return response;
   }
 

@@ -5,7 +5,7 @@ const URL = `${defaultURL}/languages`;
 
 export default class LanguagesApi {
   static async getLanguages(settings) {
-    const response = await axios.post(`${URL}`, settings);
+    const response = await axios.post(`${URL}/get`, settings);
     return response;
   }
 

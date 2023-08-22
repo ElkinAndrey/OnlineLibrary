@@ -52,6 +52,7 @@ public class LanguageController : ControllerBase
     {
         return Ok(32);
     }
+
     /// <summary>
     /// Получить информацию об языке по Guid
     /// </summary>
@@ -66,6 +67,7 @@ public class LanguageController : ControllerBase
             Abbreviation = "RU"
         });
     }
+
     /// <summary>
     /// Создать новый язык
     /// </summary>
@@ -74,6 +76,7 @@ public class LanguageController : ControllerBase
     {
         return Ok();
     }
+
     /// <summary>
     /// Обновить информацию об языке
     /// </summary>
@@ -82,6 +85,7 @@ public class LanguageController : ControllerBase
     {
         return Ok();
     }
+
     /// <summary>
     /// Удалить язык по Guid
     /// </summary>
