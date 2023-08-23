@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineLibraryAPI.Presentation.Dto.Book;
+using System.IO;
 using System.Xml.Linq;
 using static System.Reflection.Metadata.BlobBuilder;
 
@@ -199,6 +200,15 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         public async Task<IActionResult> GetOtherLanguageEditionsCount(GetOtherEditionLanguagesCountDto model)
         {
             return Ok(21);
+        }
+
+        /// <summary>
+        /// Получить количество других языков издания
+        /// </summary>
+        [HttpGet("{editionLanguageId}/cover")]
+        public async Task<IActionResult> GetBookCoverByEditionLanguageId(Guid editionLanguageId)
+        {
+            return File(new FileStream($"HelpFiles\\Cover.png", FileMode.Open), "image/png");
         }
     }
 }
