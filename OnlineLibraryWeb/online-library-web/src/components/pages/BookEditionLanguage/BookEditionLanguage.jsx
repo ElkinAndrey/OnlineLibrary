@@ -28,6 +28,7 @@ const BookEditionLanguage = () => {
   let [editionLanguagesCount, setEditionLanguagesCount] = useState([]);
   let [searchSettings, setSearchSettings] = useState(baseSearchSettings);
   let [newSearchSettings, setNewSearchSettings] = useState(baseSearchSettings);
+  let [editionLanguageCover, setEditionLanguageCover] = useState(null);
 
   // Получение данных
   const [fetchBook, isLoadingBook, errorBook] = useFetching(
@@ -51,7 +52,11 @@ const BookEditionLanguage = () => {
   useEffect(() => {
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
-    fetchBook(params.bookId);
+
+    const id = params.bookId;
+
+    fetchBook(id);
+    setEditionLanguageCover(BooksApi.getBookCoverPathByEditionLanguageId(id));
     updateFetch(searchSettings);
   }, []);
 
@@ -92,6 +97,11 @@ const BookEditionLanguage = () => {
 
   return (
     <div>
+      <div>
+        {editionLanguageCover !== null && (
+          <img style={{height: "200px"}} src={editionLanguageCover} alt="" />
+        )}
+      </div>
       <div>
         <b>Название: </b>
         {`${book?.name}`}

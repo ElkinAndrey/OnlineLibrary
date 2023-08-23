@@ -20,12 +20,22 @@ export default class BooksApi {
   }
 
   static async getBookEditionLanguages(settings) {
-    const response = await axios.post(`${URL}/${settings.editionLanguageId}/language/get`, settings);
+    const response = await axios.post(
+      `${URL}/${settings.editionLanguageId}/language/get`,
+      settings
+    );
     return response;
   }
 
   static async getBookEditionLanguagesCount(settings) {
-    const response = await axios.post(`${URL}/${settings.editionLanguageId}/language/count`, settings);
+    const response = await axios.post(
+      `${URL}/${settings.editionLanguageId}/language/count`,
+      settings
+    );
     return response;
+  }
+
+  static getBookCoverPathByEditionLanguageId(id) {
+    return `${URL}/${id}/cover`;
   }
 }
