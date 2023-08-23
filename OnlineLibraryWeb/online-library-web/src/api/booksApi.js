@@ -38,4 +38,8 @@ export default class BooksApi {
   static getBookCoverPathByEditionLanguageId(id) {
     return `${URL}/${id}/cover`;
   }
+
+  static getBookFilePathByEditionLanguageFileId(id) {
+    return `${URL}/file/${id}`;
+  }
 }

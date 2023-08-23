@@ -99,7 +99,7 @@ const BookEditionLanguage = () => {
     <div>
       <div>
         {editionLanguageCover !== null && (
-          <img style={{height: "200px"}} src={editionLanguageCover} alt="" />
+          <img style={{ height: "200px" }} src={editionLanguageCover} alt="" />
         )}
       </div>
       <div>
@@ -163,7 +163,12 @@ const BookEditionLanguage = () => {
         <b>Скачать: </b>
         {(book.fileExtensions ?? []).map((f) => (
           <label key={f.id}>
-            <Link>{f.name}</Link>
+            <a
+              download={true}
+              href={BooksApi.getBookFilePathByEditionLanguageFileId(f.id)}
+            >
+              {f.name}
+            </a>
             {", "}
           </label>
         ))}
