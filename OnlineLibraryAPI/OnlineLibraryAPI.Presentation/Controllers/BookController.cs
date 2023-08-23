@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting.Internal;
 using OnlineLibraryAPI.Presentation.Dto.Book;
 using System.IO;
 using System.Xml.Linq;
@@ -203,12 +204,26 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         }
 
         /// <summary>
-        /// Получить количество других языков издания
+        /// Получить обложку языка издания по Id
         /// </summary>
         [HttpGet("{editionLanguageId}/cover")]
         public async Task<IActionResult> GetBookCoverByEditionLanguageId(Guid editionLanguageId)
         {
             return File(new FileStream($"HelpFiles\\Cover.png", FileMode.Open), "image/png");
+        }
+
+        /// <summary>
+        /// Получить файл книги по Id
+        /// </summary>
+        [HttpGet("file/{editionLanguageFileId}")]
+        public async Task<IActionResult> GetBookFileByEditionLanguageFileId(Guid editionLanguageFileId)
+        {
+            Stream stream = new FileStream("HelpFiles\\Book.pdf", FileMode.Open);
+            string mimeType = "application/pdf";
+            return new FileStreamResult(stream, mimeType)
+            {
+                FileDownloadName = "Book.pdf"
+            };
         }
     }
 }
