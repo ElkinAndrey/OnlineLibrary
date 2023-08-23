@@ -11,6 +11,6 @@
         /// <summary>
         /// Часть названия
         /// </summary>
-        public string? Name { get; set; }
+        string? Name { get; }
     }
 }

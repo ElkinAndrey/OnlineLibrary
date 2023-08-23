@@ -129,7 +129,7 @@ const Books = () => {
         </thead>
         <tbody>
           {books.map((book) => (
-            <tr key={book.bookEditionLanguageId}>
+            <tr key={book.editionLanguageId}>
               <td>{book.name}</td>
               <td>{book.editionNumber}</td>
               <td>{book.authors.join(", ")}</td>
@@ -140,7 +140,7 @@ const Books = () => {
               <td>{book.numberAdditionsNotes}</td>
               <td>{book.numberDownloads}</td>
               <td>
-                <Link to={book.bookEditionLanguageId}>Открыть</Link>
+                <Link to={book.editionLanguageId}>Открыть</Link>
               </td>
             </tr>
           ))}

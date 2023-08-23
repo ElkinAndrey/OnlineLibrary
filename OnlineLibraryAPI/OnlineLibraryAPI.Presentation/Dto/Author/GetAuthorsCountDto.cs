@@ -1,12 +1,11 @@
-﻿namespace OnlineLibraryAPI.Presentation.Dto.Author
+﻿using OnlineLibraryAPI.Presentation.Dto.Author.Abstractions;
+
+namespace OnlineLibraryAPI.Presentation.Dto.Author
 {
     /// <summary>
     /// Данные для получения количества авторов
     /// </summary>
-    /// <remarks>
-    /// string? Name - Часть названия,
-    /// </remarks>
-    public class GetAuthorsCountDto : BaseGetAuthorsDto
-    {
-    }
+    public partial record class GetAuthorsCountDto(
+        string? Name
+        ) : IGetAuthorsCountDto;
 }

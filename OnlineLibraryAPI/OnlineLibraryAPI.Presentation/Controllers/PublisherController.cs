@@ -10,13 +10,13 @@ namespace OnlineLibraryAPI.Presentation.Controllers
     /// </summary>
     [Route("api/publishers")]
     [ApiController]
-    public class PublishingHousesController : ControllerBase
+    public class PublisherController : ControllerBase
     {
         /// <summary>
         /// Получить список издательств
         /// </summary>
         [HttpPost("get")]
-        public async Task<IActionResult> GetPublishingHouses([FromBody] GetPublishingHousesDto record)
+        public async Task<IActionResult> GetPublishingHouses([FromBody] GetPublishersDto record)
         {
             return Ok(new List<object>()
             {
@@ -37,7 +37,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         /// Получить количество издательств
         /// </summary>
         [HttpPost("count")]
-        public async Task<IActionResult> GetPublishingHousesCount([FromBody] GetPublishingHousesCountDto record)
+        public async Task<IActionResult> GetPublishingHousesCount([FromBody] GetPublishersCountDto record)
         {
             return Ok(56);
         }
@@ -61,7 +61,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         /// Создать новое издательство
         /// </summary>
         [HttpPost("")]
-        public async Task<IActionResult> Create([FromBody] CreatePublishingHouseDto publishingHouseDto)
+        public async Task<IActionResult> Create([FromBody] CreatePublisherDto publishingHouseDto)
         {
             return Ok();
         }
@@ -70,7 +70,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         /// Обновить информацию о издательстве
         /// </summary>
         [HttpPatch("{id}")]
-        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdatePublishingHouseDto publishingHouseDto)
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdatePublisherDto publishingHouseDto)
         {
             return Ok();
         }

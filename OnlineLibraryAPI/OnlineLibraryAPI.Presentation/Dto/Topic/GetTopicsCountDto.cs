@@ -1,12 +1,11 @@
-﻿namespace OnlineLibraryAPI.Presentation.Dto.Topic
+﻿using OnlineLibraryAPI.Presentation.Dto.Topic.Abstractions;
+
+namespace OnlineLibraryAPI.Presentation.Dto.Topic
 {
     /// <summary>
-    /// Данные для получения количества категорий
+    /// Параметры для получения количества категорий
     /// </summary>
-    /// <remarks>
-    /// string? Name - Часть названия категории,
-    /// </remarks>
-    public class GetTopicsCountDto : BaseGetTopicsDto
-    {
-    }
+    public partial record class GetTopicsCountDto(
+        string? Name
+        ) : IGetTopicsCountDto;
 }

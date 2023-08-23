@@ -1,18 +1,14 @@
 ﻿using OnlineLibraryAPI.Presentation.Constants;
+using OnlineLibraryAPI.Presentation.Dto.Author.Abstractions;
 
 namespace OnlineLibraryAPI.Presentation.Dto.Author
 {
     /// <summary>
-    /// Данные для получения списка авторов
+    /// Данные для получения авторов
     /// </summary>
-    /// <remarks>
-    /// int Start - Начало отчета,
-    /// int Length - Длина среза,
-    /// string? Name - Часть названия,
-    /// </remarks>
-    public class GetAuthorsDto : BaseGetAuthorsDto, IGetCutDto
-    {
-        public int Start { get; set; } = 0;
-        public int Length { get; set; } = ConstantsForDto.DefaultCutLength;
-    }
+    public partial record class GetAuthorsDto(
+        string? Name,
+        int Start,
+        int Length
+        ) : IGetAuthorsDto;
 }

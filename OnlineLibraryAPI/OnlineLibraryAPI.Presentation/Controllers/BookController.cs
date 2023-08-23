@@ -16,7 +16,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         /// Получить список книг
         /// </summary>
         [HttpPost("get")]
-        public async Task<IActionResult> GetBooks([FromBody] GetBooksDto record)
+        public async Task<IActionResult> GetEditionLanguages([FromBody] GetEditionLanguagesDto record)
         {
             return Ok(new List<object>()
             {
@@ -24,7 +24,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
                 {
                     BookId = new Guid("00000000-0000-0000-0000-513513513511"),
                     BookEditionId = new Guid("00000000-0000-0000-0000-875683898523"),
-                    BookEditionLanguageId = new Guid("00000000-0000-0000-0000-732677635525"),
+                    editionLanguageId = new Guid("00000000-0000-0000-0000-732677635525"),
                     Name = "ASP.NET Сборник рецептов",
                     GeneralDescription = "В книге собраны практические советы и примеры, которые помогут при создании веб-приложений с использованием ASP.NET: разработка архитектуры веб-приложения, его отладка, профилирование, защита, конфигурирование, работа с данными и многое другое. Рассмотрены специальные инструменты и утилиты, которые позволяют ускорить и упростить разработку и отладку веб-приложений. Уделено внимание обработке исключений в вебприложениях. Отдельная глава посвящена созданию отчетов в MS Excel. Книга будет полезна не только программистам, которые уже используют в своих разработках ASP.NET, но и тем, кто переходит на технологию ASP.NET с классической ASP или языка PHP. На компакт-диске приведен исходный код рассмотренных примеров.",
                     Year = 2015,
@@ -48,7 +48,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
                 {
                     BookId = new Guid("00000000-0000-0000-0000-671273579065"),
                     BookEditionId = new Guid("00000000-0000-0000-0000-765676475137"),
-                    BookEditionLanguageId = new Guid("00000000-0000-0000-0000-765787785713"),
+                    editionLanguageId = new Guid("00000000-0000-0000-0000-765787785713"),
                     Name = "CLR via C#",
                     GeneralDescription = "Эта книга, выходящая в четвертом издании и уже ставшая классическим учебником по программированию, подробно описывает внутреннее устройство и функционирование общеязыковой исполняющей среды (CLR) Microsoft .NET Framework версии 4.5. Написанная признанным экспертом в области программирования Джеффри Рихтером, много лет являющимся консультантом команды разработчиков .NET Framework компании Microsoft, книга научит вас создавать по-настоящему надежные приложения любого вида, в том числе с использованием Microsoft Silverlight, ASP.NET, Windows Presentation Foundation и т. д.",
                     Year = 2013,
@@ -75,7 +75,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         /// Получить количество книг
         /// </summary>
         [HttpPost("count")]
-        public async Task<IActionResult> GetBooksCount([FromBody] GetBooksCountDto record)
+        public async Task<IActionResult> GetEditionLanguagesCount([FromBody] GetEditionLanguagesCountDto record)
         {
             return Ok(123);
         }
@@ -83,15 +83,15 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         /// <summary>
         /// Получить книгу по Id
         /// </summary>
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetBookById([FromRoute] Guid bookEditionLanguageid)
+        [HttpGet("{editionLanguageId}")]
+        public async Task<IActionResult> GetEditionLanguageById(Guid editionLanguageId)
         {
             return Ok(
                 new
                 {
                     BookId = new Guid("00000000-0000-0000-0000-513513513511"),
-                    BookEditionId = new Guid("00000000-0000-0000-0000-875683898523"),
-                    BookEditionLanguageId = new Guid("00000000-0000-0000-0000-732677635525"),
+                    EditionId = new Guid("00000000-0000-0000-0000-875683898523"),
+                    EditionLanguageId = new Guid("00000000-0000-0000-0000-732677635525"),
                     Name = "ASP.NET Сборник рецептов",
                     GeneralDescription = "В книге собраны практические советы и примеры, которые помогут при создании веб-приложений с использованием ASP.NET: разработка архитектуры веб-приложения, его отладка, профилирование, защита, конфигурирование, работа с данными и многое другое. Рассмотрены специальные инструменты и утилиты, которые позволяют ускорить и упростить разработку и отладку веб-приложений. Уделено внимание обработке исключений в вебприложениях. Отдельная глава посвящена созданию отчетов в MS Excel. Книга будет полезна не только программистам, которые уже используют в своих разработках ASP.NET, но и тем, кто переходит на технологию ASP.NET с классической ASP или языка PHP. На компакт-диске приведен исходный код рассмотренных примеров.",
                     Year = 2015,
@@ -127,8 +127,8 @@ namespace OnlineLibraryAPI.Presentation.Controllers
                     {
                         new
                         {
-                            BookEditionId = new Guid("00000000-0000-0000-0000-986135766173"),
-                            BookEditionLanguageId = new Guid("00000000-0000-0000-0000-767117571235"),
+                            EditionId = new Guid("00000000-0000-0000-0000-986135766173"),
+                            EditionLanguageId = new Guid("00000000-0000-0000-0000-767117571235"),
                             Year = 2016,
                             Description = "Данная книга для программистов-практиков. Не ищите в ней теоретических знаний — для этого есть множество замечательных изданий. Эта книга — набор готовых решений, советов и исходного кода. Предполагается, что читатель знаком с синтаксисом языка C#, имеет хотя бы небольшой опыт работы с ASP.NET и представление об архитектуре платформы .NET. Знания HTML и JavaScript тоже будут очень желательны, но не обязательны. Как минимум, слова \"скрипт\", \"postback\", \"база данных\", JavaScript, CSS, стили и т. д. не должны пугать новизной. Иначе, лучше начать с книги-введения в ASP.NET.",
                             NumberAdditionsNotes = 155,
@@ -138,8 +138,8 @@ namespace OnlineLibraryAPI.Presentation.Controllers
                         },
                         new
                         {
-                            BookEditionId = new Guid("00000000-0000-0000-0000-713785781783"),
-                            BookEditionLanguageId = new Guid("00000000-0000-0000-0000-786781257125"),
+                            EditionId = new Guid("00000000-0000-0000-0000-713785781783"),
+                            EditionLanguageId = new Guid("00000000-0000-0000-0000-786781257125"),
                             Year = 2018,
                             Description = "Данная книга для программистов-практиков. Не ищите в ней теоретических знаний — для этого есть множество замечательных изданий. Эта книга — набор готовых решений, советов и исходного кода. Предполагается, что читатель знаком с синтаксисом языка C#, имеет хотя бы небольшой опыт работы с ASP.NET и представление об архитектуре платформы .NET. Знания HTML и JavaScript тоже будут очень желательны, но не обязательны. Как минимум, слова \"скрипт\", \"postback\", \"база данных\", JavaScript, CSS, стили и т. д. не должны пугать новизной. Иначе, лучше начать с книги-введения в ASP.NET.",
                             NumberAdditionsNotes = 51,
@@ -153,19 +153,19 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         }
 
         /// <summary>
-        /// Получить список с таким же изданием этой же книги, но на других языках
+        /// Получить другие языки издания
         /// </summary>
-        [HttpPost("language")]
-        public async Task<IActionResult> GetBookEditionLanguages([FromBody] GetBookEditionLanguagesCountDto model)
+        [HttpPost("{editionLanguageId}/language/get")]
+        public async Task<IActionResult> GetOtherLanguageEditions(Guid editionLanguageId, GetOtherEditionLanguagesDto model)
         {
             return Ok(new List<object>()
                 {
                     new
                     {
-                        BookEditionLanguageId = new Guid("00000000-0000-0000-0000-767117571235"),
+                        EditionLanguageId = new Guid("00000000-0000-0000-0000-767117571235"),
                         NumberPages = 956,
                         NumberAdditionsNotes = 155,
-                            NumberDownloads = 2512,
+                        NumberDownloads = 2512,
                         Language = new
                         {
                             Id = "00000000-0000-0000-0000-657849819657",
@@ -176,7 +176,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
                     },
                     new
                     {
-                        BookEditionLanguageId = new Guid("00000000-0000-0000-0000-786781257125"),
+                        EditionLanguageId = new Guid("00000000-0000-0000-0000-786781257125"),
                         NumberPages = 1004,
                         NumberAdditionsNotes = 125,
                         NumberDownloads = 651,
@@ -193,10 +193,10 @@ namespace OnlineLibraryAPI.Presentation.Controllers
         }
 
         /// <summary>
-        /// Получить количество таких же изданий этой же книги, но на других языках
+        /// Получить количество других языков издания
         /// </summary>
-        [HttpPost("language/count")]
-        public async Task<IActionResult> GetBookEditionLanguagesCount([FromBody] GetBookEditionLanguagesCountDto model)
+        [HttpPost("{editionLanguageId}/language/count")]
+        public async Task<IActionResult> GetOtherLanguageEditionsCount(GetOtherEditionLanguagesCountDto model)
         {
             return Ok(21);
         }

@@ -12,11 +12,11 @@
         /// <summary>
         /// Начало отчета
         /// </summary>
-        public int Start { get; set; }
+        int Start { get; }
 
         /// <summary>
         /// Длина среза
         /// </summary>
-        public int Length { get; set; }
+        int Length { get; }
     }
 }

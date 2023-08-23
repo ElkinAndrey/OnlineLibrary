@@ -19,33 +19,33 @@ const BookEditionLanguage = () => {
     start: 0,
     length: pageSize,
     name: null,
-    bookEditionLanguageId: params.bookId,
+    editionLanguageId: params.bookId,
   });
 
   // Данные
   const [book, setBook] = useState({});
-  let [bookEditionLanguages, setBookEditionLanguages] = useState([]);
-  let [bookEditionLanguagesCount, setBookEditionLanguagesCount] = useState([]);
+  let [editionLanguages, setEditionLanguages] = useState([]);
+  let [editionLanguagesCount, setEditionLanguagesCount] = useState([]);
   let [searchSettings, setSearchSettings] = useState(baseSearchSettings);
   let [newSearchSettings, setNewSearchSettings] = useState(baseSearchSettings);
 
   // Получение данных
   const [fetchBook, isLoadingBook, errorBook] = useFetching(
-    async (bookEditionLanguageId) => {
-      const response = await BooksApi.getBookById(bookEditionLanguageId);
+    async (editionLanguageId) => {
+      const response = await BooksApi.getBookById(editionLanguageId);
       setBook(response.data);
     }
   );
   const [fetchLanguages, isLoadingLanguages, errorLanguages] = useFetching(
     async (settings) => {
       const response = await BooksApi.getBookEditionLanguages(settings);
-      setBookEditionLanguages(response.data);
+      setEditionLanguages(response.data);
     }
   );
   const [fetchLanguagesCount, isLoadingLanguagesCount, errorLanguagesCount] =
     useFetching(async (settings) => {
       const response = await BooksApi.getBookEditionLanguagesCount(settings);
-      setBookEditionLanguagesCount(response.data);
+      setEditionLanguagesCount(response.data);
     });
 
   useEffect(() => {
@@ -143,8 +143,8 @@ const BookEditionLanguage = () => {
       <div>
         <b>Другие издания этой же книги: </b>
         {(book.booksSameEdition ?? []).map((b) => (
-          <label key={b.bookEditionLanguageId}>
-            <Link to={`/${b.bookEditionLanguageId}`}>{b.editionNumber}</Link>
+          <label key={b.editionLanguageId}>
+            <Link to={`/${b.editionLanguageId}`}>{b.editionNumber}</Link>
             {", "}
           </label>
         ))}
@@ -176,7 +176,7 @@ const BookEditionLanguage = () => {
           <button onClick={() => update()}>Обновить</button>
           <button onClick={() => reset()}>Сбросить</button>
         </div>
-        <div>{`Количество языков: ${bookEditionLanguagesCount}`}</div>
+        <div>{`Количество языков: ${editionLanguagesCount}`}</div>
         <table>
           <thead>
             <tr>
@@ -190,16 +190,16 @@ const BookEditionLanguage = () => {
             </tr>
           </thead>
           <tbody>
-            {(bookEditionLanguages ?? []).map((bookEditionLanguage) => (
-              <tr key={bookEditionLanguage.language.id}>
-                <td>{bookEditionLanguage.language.name}</td>
-                <td>{bookEditionLanguage.language.englishName}</td>
-                <td>{bookEditionLanguage.language.abbreviation}</td>
-                <td>{bookEditionLanguage.numberPages}</td>
-                <td>{bookEditionLanguage.numberAdditionsNotes}</td>
-                <td>{bookEditionLanguage.numberDownloads}</td>
+            {(editionLanguages ?? []).map((editionLanguage) => (
+              <tr key={editionLanguage.language.id}>
+                <td>{editionLanguage.language.name}</td>
+                <td>{editionLanguage.language.englishName}</td>
+                <td>{editionLanguage.language.abbreviation}</td>
+                <td>{editionLanguage.numberPages}</td>
+                <td>{editionLanguage.numberAdditionsNotes}</td>
+                <td>{editionLanguage.numberDownloads}</td>
                 <td>
-                  <Link to={`/${bookEditionLanguage.bookEditionLanguageId}`}>
+                  <Link to={`/${editionLanguage.editionLanguageId}`}>
                     Открыть
                   </Link>
                 </td>
@@ -209,7 +209,7 @@ const BookEditionLanguage = () => {
         </table>
         <PaginationBar
           min={1}
-          max={Math.ceil(bookEditionLanguagesCount / pageSize)}
+          max={Math.ceil(editionLanguagesCount / pageSize)}
           page={page}
           setPage={setNewPage}
           centerCount={1}

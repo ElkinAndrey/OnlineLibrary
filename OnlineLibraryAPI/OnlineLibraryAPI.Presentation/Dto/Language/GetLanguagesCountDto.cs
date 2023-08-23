@@ -1,12 +1,11 @@
-﻿namespace OnlineLibraryAPI.Presentation.Dto.Language
+﻿using OnlineLibraryAPI.Presentation.Dto.Language.Abstractions;
+
+namespace OnlineLibraryAPI.Presentation.Dto.Language
 {
     /// <summary>
     /// Данные для получения количества языков
     /// </summary>
-    /// <remarks>
-    /// string? Name - Часть названия,
-    /// </remarks>
-    public class GetLanguagesCountDto : BaseGetLanguagesDto
-    {
-    }
+    public partial record class GetLanguagesCountDto(
+        string? Name
+        ) : IGetLanguagesCountDto;
 }
