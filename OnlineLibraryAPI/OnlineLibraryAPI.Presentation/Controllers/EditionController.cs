@@ -2,15 +2,15 @@
 
 namespace OnlineLibraryAPI.Presentation.Controllers
 {
-    [Route("api/books")]
+    [Route("api/books/editions")]
     [ApiController]
-    public class BookController : ControllerBase
+    public class EditionController : ControllerBase
     {
         /// <summary>
-        /// Добавление новой книги
+        /// Добавление издания к уже существующей книге
         /// </summary>
         [HttpPost("")]
-        public async Task<IActionResult> AddBook()
+        public async Task<IActionResult> AddEdition()
         {
             return Ok();
         }

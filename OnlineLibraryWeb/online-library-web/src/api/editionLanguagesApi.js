@@ -1,9 +1,9 @@
 import axios from "axios";
 import { defaultURL } from "./apiSettings";
 
-const URL = `${defaultURL}/books`;
+const URL = `${defaultURL}/books/editions/languages`;
 
-export default class BooksApi {
+export default class EditionLanguagesApi {
   static async getBooks(settings) {
     const response = await axios.post(`${URL}/get`, settings);
     return response;
@@ -21,7 +21,7 @@ export default class BooksApi {
 
   static async getBookEditionLanguages(settings) {
     const response = await axios.post(
-      `${URL}/${settings.editionLanguageId}/language/get`,
+      `${URL}/${settings.editionLanguageId}/other/get`,
       settings
     );
     return response;
@@ -29,7 +29,7 @@ export default class BooksApi {
 
   static async getBookEditionLanguagesCount(settings) {
     const response = await axios.post(
-      `${URL}/${settings.editionLanguageId}/language/count`,
+      `${URL}/${settings.editionLanguageId}/other/count`,
       settings
     );
     return response;
@@ -37,9 +37,5 @@ export default class BooksApi {
 
   static getBookCoverPathByEditionLanguageId(id) {
     return `${URL}/${id}/cover`;
-  }
-
-  static getBookFilePathByEditionLanguageFileId(id) {
-    return `${URL}/file/${id}`;
   }
 }

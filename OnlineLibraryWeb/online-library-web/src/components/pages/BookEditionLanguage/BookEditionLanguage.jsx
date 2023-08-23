@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import BooksApi from "../../../api/booksApi";
+import EditionLanguagesApi from "../../../api/editionLanguagesApi";
+import EditionLanguageFilesApi from "../../../api/editionLanguageFilesApi";
 import { useFetching } from "../../../hooks/useFetching";
 import PaginationBar from "../../forms/PaginationBar/PaginationBar";
 
@@ -33,19 +34,19 @@ const BookEditionLanguage = () => {
   // Получение данных
   const [fetchBook, isLoadingBook, errorBook] = useFetching(
     async (editionLanguageId) => {
-      const response = await BooksApi.getBookById(editionLanguageId);
+      const response = await EditionLanguagesApi.getBookById(editionLanguageId);
       setBook(response.data);
     }
   );
   const [fetchLanguages, isLoadingLanguages, errorLanguages] = useFetching(
     async (settings) => {
-      const response = await BooksApi.getBookEditionLanguages(settings);
+      const response = await EditionLanguagesApi.getBookEditionLanguages(settings);
       setEditionLanguages(response.data);
     }
   );
   const [fetchLanguagesCount, isLoadingLanguagesCount, errorLanguagesCount] =
     useFetching(async (settings) => {
-      const response = await BooksApi.getBookEditionLanguagesCount(settings);
+      const response = await EditionLanguagesApi.getBookEditionLanguagesCount(settings);
       setEditionLanguagesCount(response.data);
     });
 
@@ -56,7 +57,7 @@ const BookEditionLanguage = () => {
     const id = params.bookId;
 
     fetchBook(id);
-    setEditionLanguageCover(BooksApi.getBookCoverPathByEditionLanguageId(id));
+    setEditionLanguageCover(EditionLanguagesApi.getBookCoverPathByEditionLanguageId(id));
     updateFetch(searchSettings);
   }, []);
 
@@ -165,7 +166,7 @@ const BookEditionLanguage = () => {
           <label key={f.id}>
             <a
               download={true}
-              href={BooksApi.getBookFilePathByEditionLanguageFileId(f.id)}
+              href={EditionLanguageFilesApi.getBookFilePathByEditionLanguageFileId(f.id)}
             >
               {f.name}
             </a>
