@@ -120,7 +120,7 @@ const BookEditionLanguage = () => {
         {`${book?.description}`}
       </div>
       <div>
-        <b>Количество страниц</b>
+        <b>Количество страниц: </b>
         {`${book?.numberPages}`}
       </div>
       <div>
