@@ -1,8 +1,12 @@
+using Microsoft.EntityFrameworkCore;
+using OnlineLibraryAPI.Services.Persistence;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Добавляем сервисы в контейнер.
 
 builder.Services.AddControllers();
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 // Узнайте больше о настройке Swagger/OpenAPI на странице https://aka.ms/aspnetcore/swashbuckle.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
