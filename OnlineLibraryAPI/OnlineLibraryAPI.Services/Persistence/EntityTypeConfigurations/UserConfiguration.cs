@@ -11,6 +11,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasKey(u => u.Id);
 
         builder.Property(u => u.Email).IsRequired();
+        builder.Property(u => u.PasswordHash).IsRequired();
+        builder.Property(u => u.EmailConfirmed).HasDefaultValue(false);
 
         builder.HasOne(u => u.Role)
             .WithMany(r => r.Users)

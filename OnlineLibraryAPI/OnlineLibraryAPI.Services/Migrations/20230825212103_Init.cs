@@ -29,6 +29,8 @@ namespace OnlineLibraryAPI.Services.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>

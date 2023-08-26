@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineLibraryAPI.Services.Persistence;
 
@@ -11,9 +12,11 @@ using OnlineLibraryAPI.Services.Persistence;
 namespace OnlineLibraryAPI.Services.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230825212103_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,33 +60,6 @@ namespace OnlineLibraryAPI.Services.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("73859e47-aa89-43ee-aada-f9794040cacf"),
-                            Name = "User"
-                        },
-                        new
-                        {
-                            Id = new Guid("6bfd5453-fb0e-435c-bf54-638e994bdaf5"),
-                            Name = "Manager"
-                        },
-                        new
-                        {
-                            Id = new Guid("5ff13486-f325-40a6-a41c-555259379dfb"),
-                            Name = "SuperManager"
-                        },
-                        new
-                        {
-                            Id = new Guid("4832250f-0b8e-4675-bba6-9badc22de7c9"),
-                            Name = "Admin"
-                        },
-                        new
-                        {
-                            Id = new Guid("af485b12-a0e4-4c45-89e8-4110f340160f"),
-                            Name = "Root"
-                        });
                 });
 
             modelBuilder.Entity("OnlineLibraryAPI.Domain.Entities.User", b =>
