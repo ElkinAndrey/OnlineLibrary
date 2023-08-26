@@ -12,6 +12,6 @@ public interface IEmailService
     /// <summary>
     ///  Получение нормализованной версии электронной почты
     /// </summary>
-    /// /// <param name="email">Электронная почта</param>>
+    /// <param name="email">Электронная почта</param>>
     public string GetNormalize(string email);
 }
