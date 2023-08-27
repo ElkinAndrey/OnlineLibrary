@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using OnlineLibraryAPI.Presentation.ServiceConfigurations;
 using OnlineLibraryAPI.Services.Abstractions;
 using OnlineLibraryAPI.Services.Implementations;
 using OnlineLibraryAPI.Services.Persistence;
@@ -14,8 +15,9 @@ builder.Services.AddTransient<IEmailService, EmailService>();
 builder.Services.AddTransient<ITokenService, JwtTokenService>();
 // Узнайте больше о настройке Swagger/OpenAPI на странице https://aka.ms/aspnetcore/swashbuckle.
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
+builder.Services.AddSwaggerGenConfiguration();
+builder.Services.AddAuthorizationConfiguration();
+builder.Services.AddAuthenticationConfiguration();
 var app = builder.Build();
 
 app.UseCors(options =>
