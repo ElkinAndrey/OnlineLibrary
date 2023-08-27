@@ -19,4 +19,15 @@ public class JwtTokenService : ITokenService
         var token = new JwtSecurityToken(issuer, null, claims, null, expires, credentials);
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
+    public RefreshToken CreateRefreshToken(User user)
+    {
+        var refreshToken = new RefreshToken
+        {
+            Token = Guid.NewGuid(),
+            Expires = DateTime.UtcNow.Add(TimeSpan.FromSeconds((double)TokenConstants.RefreshTokenExpires)),
+            User = user
+        };
+        return refreshToken;
+    }
+
 }

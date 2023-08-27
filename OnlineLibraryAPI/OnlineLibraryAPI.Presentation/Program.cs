@@ -11,6 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddTransient<IPasswordService, BcryptPasswordService>();
 builder.Services.AddTransient<IEmailService, EmailService>();
+builder.Services.AddTransient<ITokenService, JwtTokenService>();
 // Узнайте больше о настройке Swagger/OpenAPI на странице https://aka.ms/aspnetcore/swashbuckle.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

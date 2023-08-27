@@ -10,4 +10,8 @@ public interface ITokenService
     ///  Создание access-токена
     /// </summary>
     public string CreateAccessToken(User user);
+    /// <summary>
+    ///  Создание refresh-токена
+    /// </summary>
+    public RefreshToken CreateRefreshToken(User user);
 }
