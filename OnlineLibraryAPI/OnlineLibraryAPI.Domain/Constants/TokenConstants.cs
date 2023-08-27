@@ -10,8 +10,8 @@ public static class TokenConstants
     public static string Issuer { get; } = "OnlineLibraryAPI";
     /// <summary>
     ///  Секретный ключ для токенов
-    /// </summary>
-    public static string TokenKey = "_MyGigaSecretKey_";
+    /// </summary>    
+    public static string TokenKey { get; } = "_MyGigaSecretKey_";
     /// <summary>
     ///  Время жизни access-токена в секундах
     /// </summary>
