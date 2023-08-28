@@ -15,7 +15,7 @@ public class JwtTokenService : ITokenService
         var claims = new List<Claim> 
         {
             new Claim("EmailConfirmed", user.EmailConfirmed.ToString()),
-            new Claim("UserId", user.Role.Name),
+            new Claim("UserId", user.Id.ToString()),
             new Claim(ClaimTypes.Email, user.Email), 
             new Claim(ClaimTypes.Role, user.Role.Name)
         };

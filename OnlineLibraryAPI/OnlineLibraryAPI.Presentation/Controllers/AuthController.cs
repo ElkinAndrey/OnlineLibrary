@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using OnlineLibraryAPI.Domain.Constants;
 using OnlineLibraryAPI.Domain.Entities;
 using OnlineLibraryAPI.Presentation.Dto.Auth;
 using OnlineLibraryAPI.Services.Abstractions;
 using OnlineLibraryAPI.Services.Persistence;
+using System.Linq;
 using System.Net;
 using System.Security.Claims;
 
@@ -63,6 +65,7 @@ public class AuthController : ControllerBase
         if (PasswordService.VerifyPasswordHash(user.PasswordHash, loginDto.Password))
         {
             await SetRefreshToken(TokenService.CreateRefreshToken(user));
+            await DeleteExpiredTokensAsync(user);
             return Ok(TokenService.CreateAccessToken(user));
         }
         else
@@ -95,14 +98,30 @@ public class AuthController : ControllerBase
         return Ok(accessToken);
     }
     /// <summary>
-    /// Выйти из аккаунта (удалить refresh-токен)
+    /// Выйти из аккаунта на этом устройстве (удалить refresh-токен)
     /// </summary>
-    [HttpPost("logout")]
+    [HttpPost("logout"), Authorize(Policy = "User")]
     public async Task<IActionResult> Logout() 
     {
+        var refreshToken = await DbContext.RefreshTokens
+           .FirstOrDefaultAsync(t => t.Token == GetRefreshToken())
+           ?? throw new Exception("Incorrect refresh token."); //изменить потом обработку ошибок;
+        Response.Cookies.Delete("RefreshToken");
+        DbContext.RefreshTokens.Remove(refreshToken);
+        await DbContext.SaveChangesAsync();
         return Ok();
     }
-
+    /// <summary>
+    /// Выйти из аккаунта на всех устройствах (удалить все refresh-токены)
+    /// </summary>
+    [HttpPost("all_logout"), Authorize(Policy = "User")]
+    public async Task<IActionResult> AllLogout()
+    {
+        Response.Cookies.Delete("RefreshToken");
+        var id = new Guid(HttpContext.User.FindFirst("UserId")!.Value);
+        await DbContext.RefreshTokens.Where(rt => rt.User.Id == id).ExecuteDeleteAsync();
+        return Ok();
+    }
     /// <summary>
     /// Получить информацию о своём аккаунте
     /// </summary>
@@ -124,6 +143,16 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> DeleteAccount() 
     {
         return Ok();
+    }
+    /// <summary>
+    /// Удаление всех истёкших refresh-токенов
+    /// </summary>
+    private async Task DeleteExpiredTokensAsync(User user)
+    {
+        await DbContext.RefreshTokens
+            .Include(rt => rt.User)
+            .Where(rt => rt.User.Id == user.Id && rt.Expires < DateTime.UtcNow)
+            .ExecuteDeleteAsync();
     }
     /// <summary>
     /// Установка refresh-токена в куки и добавление в базу данных
