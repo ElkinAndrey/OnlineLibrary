@@ -12,7 +12,13 @@ public class JwtTokenService : ITokenService
     public string CreateAccessToken(User user)
     {
         var issuer = TokenConstants.Issuer;
-        var claims = new List<Claim> { new Claim(ClaimTypes.Email, user.Email), new Claim(ClaimTypes.Role, user.Role.Name), new Claim("UserId", user.Role.Name) };
+        var claims = new List<Claim> 
+        {
+            new Claim("EmailConfirmed", user.EmailConfirmed.ToString()),
+            new Claim("UserId", user.Role.Name),
+            new Claim(ClaimTypes.Email, user.Email), 
+            new Claim(ClaimTypes.Role, user.Role.Name)
+        };
         var expires = DateTime.UtcNow.Add(TimeSpan.FromSeconds((double)TokenConstants.AccessTokenExpires));
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(TokenConstants.TokenKey));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
