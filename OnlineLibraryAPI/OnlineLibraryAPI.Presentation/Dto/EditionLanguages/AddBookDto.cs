@@ -15,9 +15,9 @@ namespace OnlineLibraryAPI.Presentation.Dto.EditionLanguages
         List<Guid>? Topics,
         List<Guid>? Authors,
         List<Guid>? Publishers,
-        Guid? Language,
+        Guid? Language, 
         Guid? FileExtensions,
         IFormFile? Cover,
         IFormFile? File
-        ) : IAddBookDto;
+        ) : IAddBookDto;    
 }

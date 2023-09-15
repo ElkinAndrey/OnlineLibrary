@@ -6,7 +6,7 @@ const InputNumder = ({ text, value, setValue }) => {
       {text}
       <input
         type={"number"}
-        value={value ?? ""}
+        value={(value ?? "").toString()}
         onChange={(e) => setValue(e.target.value)}
       />
     </div>

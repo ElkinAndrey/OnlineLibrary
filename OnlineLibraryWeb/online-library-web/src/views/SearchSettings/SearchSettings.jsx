@@ -6,6 +6,9 @@ import GetTopics from "../GetTopics/GetTopics";
 import GetAuthors from "../GetAuthors/GetAuthors";
 import GetPublishers from "../GetPublishers/GetPublishers";
 import SetSearchLanguage from "../SetSearchLanguage/SetSearchLanguage";
+import { isNullOrEmpty } from "../../utils/isNullOrEmpty";
+import LanguagesApi from "../../api/languagesApi";
+import SetSearchOne from "../SetSearchOne/SetSearchOne";
 
 const emptyFunc = () => {};
 
@@ -116,9 +119,28 @@ export function SearchSettings({ settings, setSettings, setResetFunc }) {
         }
       />
 
+      <SetSearchOne
+        groupName={"Language"}
+        name={"Язык"}
+        empty={"не выбран"}
+        header={"Язык"}
+        setReset={(p) => setResetLanguage({ run: p })}
+        setElementId={(l) => setSettings({ ...settings, language: l })}
+        getId={(e) => e.id}
+        getName={(e) =>
+          isNullOrEmpty(e.name) &&
+          isNullOrEmpty(e.englishName) &&
+          isNullOrEmpty(e.abbreviation)
+            ? null
+            : `${e.name}, ${e.englishName}, ${e.abbreviation}`
+        }
+        getElements={LanguagesApi.getLanguages}
+        getCount={LanguagesApi.getLanguagesCount}
+      />
+
       <SetSearchLanguage
-        settings={settings}
-        setSettings={setSettings}
+        empty={"Все языки"}
+        setLanguageId={(l) => setSettings({ ...settings, languageId: l })}
         setReset={(p) => setResetLanguage({ run: p })}
       />
 

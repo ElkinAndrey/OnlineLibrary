@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Modal from "../../components/forms/Modal/Modal";
 import GetLanguage from "../GetLanguage/GetLanguage";
 
-const SetSearchLanguage = ({ settings, setSettings, setReset }) => {
+const SetSearchLanguage = ({ empty = "", setLanguageId, setReset }) => {
   // Вспомогательные переменные
   let [modalActive, setModalActive] = useState(false);
 
@@ -11,7 +11,7 @@ const SetSearchLanguage = ({ settings, setSettings, setReset }) => {
 
   return (
     <div>
-      {`Язык: ${language.abbreviation ?? "Все языки"} `}
+      {`Язык: ${language.abbreviation ?? empty} `}
       <button onClick={() => setModalActive(true)}>Изменить</button>
       <Modal active={modalActive} setActive={setModalActive}>
         <h1 style={{ textAlign: "center" }}>Языки</h1>
@@ -19,7 +19,7 @@ const SetSearchLanguage = ({ settings, setSettings, setReset }) => {
           selectedLanguage={language}
           setSelectedLanguage={(l) => {
             setLanguage(l);
-            setSettings({ ...settings, languageId: l.id });
+            setLanguageId(l.id);
           }}
           setReset={setReset}
         />

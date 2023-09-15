@@ -35,7 +35,7 @@ namespace OnlineLibraryAPI.Presentation.Controllers
                 },
                 new
                 {
-                    Id = "00000000-0000-0000-0000-019928589125",
+                    Id = "00000000-0000-0000-0000-908167457715",
                     Name = "djvu",
                 },
             });

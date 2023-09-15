@@ -112,6 +112,7 @@ const Books = () => {
       <button onClick={update}>Обновить</button>
       <button onClick={reset}>Сбросить</button>
       <div>{`Количество найденных книг: ${booksCount}`}</div>
+      <Link to={"/add"}>Добавить книгу</Link>
       <table>
         <thead>
           <tr>
