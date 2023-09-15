@@ -11,10 +11,11 @@ export default class BooksApi {
   }
 
   static async addBook(params) {
-    console.log(params);
     let formData = new FormData();
+
     const a = (name, value) => formData.append(name, value);
     const g = (name, value) => formData.get(name, value);
+
     a("name", params.name);
     a("generalDescription", params.generalDescription);
     a("year", params.year);
@@ -37,6 +38,7 @@ export default class BooksApi {
     (params.fileExtensions ? a : g)("fileExtensions", params.fileExtensions);
     (params.cover ? a : g)("cover", params.cover);
     (params.file ? a : g)("file", params.file);
+
     await axios.post(`${URL}`, formData);
   }
 }
